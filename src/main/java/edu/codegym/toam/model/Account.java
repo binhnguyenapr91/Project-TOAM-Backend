@@ -11,8 +11,20 @@ public class Account {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Column(unique = true,nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(unique = true,nullable = false)
+    private String email;
+
+    @Column(unique = true,nullable = false)
+    private String phone;
+
+    private boolean status;
 
     @ManyToOne
     private Role role;
