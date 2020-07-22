@@ -34,9 +34,8 @@ public class Properties {
     @JoinColumn(name = "hostId")
     private Account hostId;
 
-    @OneToMany
-    @JoinColumn(name = "hiredHousteId")
-    private List<Account> hiredHousteId;
+    @OneToOne
+    private Contracts contracts;
 
     public Long getId() {
         return id;
@@ -150,11 +149,11 @@ public class Properties {
         this.hostId = hostId;
     }
 
-    public List<Account> getHiredHousteId() {
-        return hiredHousteId;
+    public Contracts getContracts() {
+        return contracts;
     }
 
-    public void setHiredHousteId(List<Account> hiredHousteId) {
-        this.hiredHousteId = hiredHousteId;
+    public void setContracts(Contracts contracts) {
+        this.contracts = contracts;
     }
 }
