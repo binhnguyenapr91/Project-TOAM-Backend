@@ -3,13 +3,17 @@ package edu.codegym.toam.service.account;
 import edu.codegym.toam.model.Account;
 import edu.codegym.toam.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class AccountService implements IAccountService{
+public class AccountService implements IAccountService {
     @Autowired
     AccountRepository accountRepository;
 
@@ -26,5 +30,20 @@ public class AccountService implements IAccountService{
     @Override
     public Account findByUsername(String username) {
         return accountRepository.findAccountByUsername(username);
+    }
+
+    @Override
+    public Account update(Account account) {
+        return accountRepository.save(account);
+    }
+
+    @Override
+    public void removeById(Long id) {
+            accountRepository.deleteById(id);
+        }
+
+    @Override
+    public Account create(Account account) {
+        return accountRepository.save(account);
     }
 }
