@@ -34,7 +34,7 @@ public class Properties {
     @JoinColumn(name = "hostId")
     private Account hostId;
 
-    @OneToOne
+    @ManyToOne
     private Contracts contracts;
 
     public Long getId() {

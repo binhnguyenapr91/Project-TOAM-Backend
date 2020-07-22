@@ -4,7 +4,10 @@ import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.repository.AccountRepository;
 import edu.codegym.toam.repository.PropertiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class PropertiesService implements IPropertiesService {
     @Autowired
     PropertiesRepository propertiesRepository;
