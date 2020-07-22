@@ -38,7 +38,9 @@ public class Addresses {
         return districts;
     }
 
-    public void setDistricts(Districts districts)
+    public void setDistricts(Districts districts) {
+        this.districts = districts;
+    }
 
     public Properties getProperties() {
         return properties;
