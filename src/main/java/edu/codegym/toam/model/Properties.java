@@ -34,9 +34,6 @@ public class Properties {
     @JoinColumn(name = "hostId")
     private Account hostId;
 
-    @ManyToOne
-    private Contracts contracts;
-
     public Long getId() {
         return id;
     }
@@ -149,11 +146,4 @@ public class Properties {
         this.hostId = hostId;
     }
 
-    public Contracts getContracts() {
-        return contracts;
-    }
-
-    public void setContracts(Contracts contracts) {
-        this.contracts = contracts;
-    }
 }
