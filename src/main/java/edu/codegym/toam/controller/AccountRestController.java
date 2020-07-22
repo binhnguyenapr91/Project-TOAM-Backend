@@ -30,12 +30,25 @@ public class AccountRestController {
 
     @PostMapping()
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
-        return ResponseEntity.ok(this.accountService.create(account));
+
+        try {
+            return ResponseEntity.ok(this.accountService.create(account));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
     }
 
     @PutMapping()
     public ResponseEntity<Account> updateAccount(@RequestBody Account account) {
-        return ResponseEntity.ok(this.accountService.update(account));
+
+
+        try {
+            return ResponseEntity.ok(this.accountService.update(account));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
     }
 
     @DeleteMapping("/{id}")
