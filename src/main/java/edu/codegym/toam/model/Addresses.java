@@ -15,6 +15,9 @@ public class Addresses {
     @ManyToOne
     private Districts districts;
 
+    @OneToOne
+    private Properties properties;
+
     public Long getId() {
         return id;
     }
@@ -35,7 +38,13 @@ public class Addresses {
         return districts;
     }
 
-    public void setDistricts(Districts districts) {
-        this.districts = districts;
+    public void setDistricts(Districts districts)
+
+    public Properties getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Properties properties) {
+        this.properties = properties;
     }
 }
