@@ -1,6 +1,7 @@
 package edu.codegym.toam.service.account;
 
 import edu.codegym.toam.model.Account;
+import edu.codegym.toam.model.Role;
 import edu.codegym.toam.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -45,5 +46,19 @@ public class AccountService implements IAccountService {
     @Override
     public Account create(Account account) {
         return accountRepository.save(account);
+    }
+
+    @Override
+    public Iterable<Account> findAllHost() {
+        Role host =new Role();
+        host.setId((long) 2);
+        return accountRepository.findAccountByRole(host);
+    }
+
+    @Override
+    public Iterable<Account> findAllRenter() {
+        Role renter =new Role();
+        renter.setId((long) 3);
+        return accountRepository.findAccountByRole(renter);
     }
 }

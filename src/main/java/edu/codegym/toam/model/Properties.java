@@ -3,7 +3,8 @@ package edu.codegym.toam.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -11,10 +12,19 @@ public class Properties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
+    @Min(10)
     private float size;
+    @NotNull
+    @Min(1)
     private int bedrooms;
+    @NotNull
+    @Min(1)
     private int bathrooms;
+    @NotNull
+    @Min(3)
     private float price;
     private String description;
     private String images;
@@ -27,12 +37,12 @@ public class Properties {
     private PropertiesTypes propertiesTypes;
 
     @OneToOne
-    @JoinColumn(name = "addressId")
+    @JoinColumn(name = "addressId",unique = true)
     private Addresses addresses;
 
     @ManyToOne
     @JoinColumn(name = "hostId")
-    private Account hostId;
+    private Account host;
 
     public Long getId() {
         return id;
@@ -138,12 +148,11 @@ public class Properties {
         this.addresses = addresses;
     }
 
-    public Account getHostId() {
-        return hostId;
+    public Account getHost() {
+        return host;
     }
 
-    public void setHostId(Account hostId) {
-        this.hostId = hostId;
+    public void setHost(Account host) {
+        this.host = host;
     }
-
 }

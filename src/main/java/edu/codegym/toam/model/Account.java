@@ -3,6 +3,8 @@ package edu.codegym.toam.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 @Entity
 @Data
@@ -12,12 +14,15 @@ public class Account {
     private Long id;
     private String name;
 
+    @Size(min = 3,max = 50)
     @Column(unique = true,nullable = false)
     private String username;
 
+    @Size(min = 5,max = 50)
     @Column(nullable = false)
     private String password;
 
+    @Email
     @Column(unique = true,nullable = false)
     private String email;
 

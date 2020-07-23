@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/properties")
+@RequestMapping("api/property")
 public class PropertiesRestController {
     
     @Autowired
     IPropertiesService propertiesService;
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Properties>> getAccounts() {
+    public ResponseEntity<Iterable<Properties>> getProperties() {
         return ResponseEntity.ok(this.propertiesService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Properties> getAccountById(@PathVariable Long id) {
+    public ResponseEntity<Properties> getPropertiesById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(this.propertiesService.findById(id));
         } catch (Exception e) {
@@ -30,14 +30,13 @@ public class PropertiesRestController {
     }
 
     @PostMapping()
-    public ResponseEntity<Properties> createAccount(@RequestBody Properties properties) {
+    public ResponseEntity<Properties> createProperties(@RequestBody Properties properties) {
 
         try {
             return ResponseEntity.ok(this.propertiesService.create(properties));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-
     }
 
     @PutMapping()
@@ -48,7 +47,6 @@ public class PropertiesRestController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-
     }
 
     @DeleteMapping("/{id}")
@@ -59,6 +57,12 @@ public class PropertiesRestController {
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+//    Tìm Properties theo host id
+    @GetMapping("/host/{id}")
+    public ResponseEntity<Iterable<Properties>> getHostProperties(@PathVariable Long id) {
+        return ResponseEntity.ok(this.propertiesService.findAllPropertiesById(id));
     }
 
 }

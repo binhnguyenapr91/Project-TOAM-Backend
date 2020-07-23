@@ -1,7 +1,6 @@
 package edu.codegym.toam.service.properties;
 
 import edu.codegym.toam.model.Properties;
-import edu.codegym.toam.repository.AccountRepository;
 import edu.codegym.toam.repository.PropertiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,11 @@ public class PropertiesService implements IPropertiesService {
     }
 
     @Override
-    public Iterable<Properties> findByLocation(String locationName) {
-        return propertiesRepository.findPropertiesByAddresses_Districts(locationName);
+    public Iterable<Properties> findAllPropertiesById(Long id) {
+        return propertiesRepository.findPropertiesByHost_Id(id);
     }
+    //    @Override
+//    public Iterable<Properties> findByLocation(String locationName) {
+//        return propertiesRepository.findPropertiesByAddresses_Districts(locationName);
+//    }
 }

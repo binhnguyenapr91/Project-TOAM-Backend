@@ -1,18 +1,21 @@
 package edu.codegym.toam.model;
 
-import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
+//Không cho phép 1 renter tạo nhiều contracts với cùng 1 thời gian bắt đầu và cùng 1 địa chỉ
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"beginTime","renterId", "propertiesId"})
+})
+
 @Entity
-@Data
 public class Contracts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @CreationTimestamp
     private Date createTime;
 
@@ -21,14 +24,11 @@ public class Contracts {
     private boolean status;
 
     @ManyToOne
-    @JoinColumn(name = "hostId")
-    private Account host;
-
-    @ManyToOne
     @JoinColumn(name = "renterId")
     private Account renter;
 
     @ManyToOne
+    @JoinColumn(name = "propertiesId")
     private Properties properties;
 
     public Long getId() {
@@ -69,14 +69,6 @@ public class Contracts {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public Account getHost() {
-        return host;
-    }
-
-    public void setHost(Account host) {
-        this.host = host;
     }
 
     public Account getRenter() {

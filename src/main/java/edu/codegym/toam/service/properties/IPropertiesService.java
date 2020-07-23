@@ -8,6 +8,6 @@ public interface IPropertiesService {
     Properties update(Properties properties);
     void removeById(Long id);
     Properties create(Properties properties);
+    Iterable<Properties> findAllPropertiesById(Long id);
 
-    Iterable <Properties> findByLocation(String locationName);
 }
