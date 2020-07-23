@@ -27,8 +27,7 @@ public class Properties {
     private PropertiesTypes propertiesTypes;
 
     @OneToOne
-    @JoinColumn(name = "addressId")
-
+    @JoinColumn(name = "addressId",unique = true)
     private Addresses addresses;
 
     @ManyToOne
