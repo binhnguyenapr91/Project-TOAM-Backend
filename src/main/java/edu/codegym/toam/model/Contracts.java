@@ -21,10 +21,6 @@ public class Contracts {
     private boolean status;
 
     @ManyToOne
-    @JoinColumn(name = "hostId")
-    private Account host;
-
-    @ManyToOne
     @JoinColumn(name = "renterId")
     private Account renter;
 
@@ -69,14 +65,6 @@ public class Contracts {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    public Account getHost() {
-        return host;
-    }
-
-    public void setHost(Account host) {
-        this.host = host;
     }
 
     public Account getRenter() {
