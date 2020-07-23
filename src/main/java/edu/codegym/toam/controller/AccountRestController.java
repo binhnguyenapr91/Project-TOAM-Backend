@@ -19,6 +19,19 @@ public class AccountRestController {
         return ResponseEntity.ok(this.accountService.findAll());
     }
 
+//    Lấy tất cả những thằng chủ nhà
+    @GetMapping("/host")
+    public ResponseEntity<Iterable<Account>> getHost() {
+        return ResponseEntity.ok(this.accountService.findAllHost());
+    }
+
+//Lấy tất cả những thằng thuê nhà
+    @GetMapping("/renter")
+    public ResponseEntity<Iterable<Account>> getRenter() {
+        return ResponseEntity.ok(this.accountService.findAllRenter());
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
         try {

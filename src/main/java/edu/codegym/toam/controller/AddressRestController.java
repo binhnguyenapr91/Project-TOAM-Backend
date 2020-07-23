@@ -1,7 +1,9 @@
 package edu.codegym.toam.controller;
 
 import edu.codegym.toam.model.Account;
+import edu.codegym.toam.model.Addresses;
 import edu.codegym.toam.service.account.IAccountService;
+import edu.codegym.toam.service.adrress.IAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,27 +14,27 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class AddressRestController {
     @Autowired
-    IAccountService accountService;
+    IAddressService addressService;
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Account>> getAccounts() {
-        return ResponseEntity.ok(this.accountService.findAll());
+    public ResponseEntity<Iterable<Addresses>> getAccounts() {
+        return ResponseEntity.ok(this.addressService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
+    public ResponseEntity<Addresses> getAccountById(@PathVariable Long id) {
         try {
-            return ResponseEntity.ok(this.accountService.findById(id));
+            return ResponseEntity.ok(this.addressService.findById(id));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping()
-    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
+    public ResponseEntity<Addresses> createAccount(@RequestBody Addresses addresses) {
 
         try {
-            return ResponseEntity.ok(this.accountService.create(account));
+            return ResponseEntity.ok(this.addressService.create(addresses));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -40,11 +42,11 @@ public class AddressRestController {
     }
 
     @PutMapping()
-    public ResponseEntity<Account> updateAccount(@RequestBody Account account) {
+    public ResponseEntity<Addresses> updateAccount(@RequestBody Addresses addresses) {
 
 
         try {
-            return ResponseEntity.ok(this.accountService.update(account));
+            return ResponseEntity.ok(this.addressService.update(addresses));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -54,7 +56,7 @@ public class AddressRestController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeBlogById(@PathVariable Long id) {
         try {
-            this.accountService.removeById(id);
+            this.addressService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
