@@ -59,4 +59,10 @@ public class PropertiesRestController {
         }
     }
 
+//    Tìm Properties theo host id
+    @GetMapping("/host/{id}")
+    public ResponseEntity<Iterable<Properties>> getHostProperties(@PathVariable Long id) {
+        return ResponseEntity.ok(this.propertiesService.findAllPropertiesById(id));
+    }
+
 }
