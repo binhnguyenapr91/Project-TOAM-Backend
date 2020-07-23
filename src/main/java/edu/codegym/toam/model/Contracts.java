@@ -13,6 +13,12 @@ public class Contracts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @CreationTimestamp
+    @Column(name = "create_date")
+    private Date createDate;
+
+
     @CreationTimestamp
     private Date createTime;
 

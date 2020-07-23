@@ -57,4 +57,5 @@ public class ContractRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 }
