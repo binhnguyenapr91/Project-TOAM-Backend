@@ -18,7 +18,6 @@ public class Contracts {
     @Column(name = "create_date")
     private Date createDate;
 
-
     @CreationTimestamp
     private Date createTime;
 
