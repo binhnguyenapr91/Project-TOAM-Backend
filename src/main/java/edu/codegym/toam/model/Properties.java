@@ -32,7 +32,7 @@ public class Properties {
 
     @ManyToOne
     @JoinColumn(name = "hostId")
-    private Account hostId;
+    private Account host;
 
     public Long getId() {
         return id;
@@ -138,12 +138,11 @@ public class Properties {
         this.addresses = addresses;
     }
 
-    public Account getHostId() {
-        return hostId;
+    public Account getHost() {
+        return host;
     }
 
-    public void setHostId(Account hostId) {
-        this.hostId = hostId;
+    public void setHost(Account host) {
+        this.host = host;
     }
-
 }
