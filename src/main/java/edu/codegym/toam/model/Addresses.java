@@ -38,4 +38,5 @@ public class Addresses {
     public void setDistricts(Districts districts) {
         this.districts = districts;
     }
+
 }

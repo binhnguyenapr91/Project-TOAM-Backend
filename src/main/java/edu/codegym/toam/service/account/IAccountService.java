@@ -6,7 +6,7 @@ public interface IAccountService {
     Iterable<Account> findAll();
     Account findById(Long id);
     Account findByUsername(String username);
-    Account update(Account blog);
+    Account update(Account account);
     void removeById(Long id);
-    Account create(Account blog);
+    Account create(Account account);
 }

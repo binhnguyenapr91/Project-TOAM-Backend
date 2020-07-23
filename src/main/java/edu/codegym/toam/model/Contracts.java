@@ -20,16 +20,16 @@ public class Contracts {
     private Date endTime;
     private boolean status;
 
-    @OneToOne
-    private Properties properties;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "hostId")
     private Account host;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "renterId")
     private Account renter;
+
+    @ManyToOne
+    private Properties properties;
 
     public Long getId() {
         return id;
@@ -71,14 +71,6 @@ public class Contracts {
         this.status = status;
     }
 
-    public Properties getProperties() {
-        return properties;
-    }
-
-    public void setProperties(Properties properties) {
-        this.properties = properties;
-    }
-
     public Account getHost() {
         return host;
     }
@@ -93,5 +85,13 @@ public class Contracts {
 
     public void setRenter(Account renter) {
         this.renter = renter;
+    }
+
+    public Properties getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Properties properties) {
+        this.properties = properties;
     }
 }
