@@ -18,7 +18,6 @@ public class Contracts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @CreationTimestamp
     private Date createTime;
 

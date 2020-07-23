@@ -19,13 +19,13 @@ public class AccountRestController {
         return ResponseEntity.ok(this.accountService.findAll());
     }
 
-//    Lấy tất cả những thằng chủ nhà
+    //    Lấy danh sách tất cả những thằng chủ nhà
     @GetMapping("/host")
     public ResponseEntity<Iterable<Account>> getHost() {
         return ResponseEntity.ok(this.accountService.findAllHost());
     }
 
-//Lấy tất cả những thằng thuê nhà
+    //Lấy danh sách tất cả những thằng thuê nhà
     @GetMapping("/renter")
     public ResponseEntity<Iterable<Account>> getRenter() {
         return ResponseEntity.ok(this.accountService.findAllRenter());
@@ -69,7 +69,7 @@ public class AccountRestController {
         try {
             this.accountService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
