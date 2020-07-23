@@ -3,7 +3,8 @@ package edu.codegym.toam.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -11,10 +12,19 @@ public class Properties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
+    @Min(10)
     private float size;
+    @NotNull
+    @Min(1)
     private int bedrooms;
+    @NotNull
+    @Min(1)
     private int bathrooms;
+    @NotNull
+    @Min(3)
     private float price;
     private String description;
     private String images;
