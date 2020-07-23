@@ -28,6 +28,7 @@ public class Properties {
 
     @OneToOne
     @JoinColumn(name = "addressId")
+
     private Addresses addresses;
 
     @ManyToOne
