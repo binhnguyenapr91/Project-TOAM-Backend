@@ -3,6 +3,8 @@ package edu.codegym.toam.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 
 @Entity
 @Data
@@ -15,9 +17,11 @@ public class Account {
     @Column(unique = true,nullable = false)
     private String username;
 
+    @Min(5)
     @Column(nullable = false)
     private String password;
 
+    @Email
     @Column(unique = true,nullable = false)
     private String email;
 
