@@ -79,7 +79,7 @@ public class PropertiesRestController {
 //    }
 
 
-//    Cú pháp search
+//    Cú pháp search, bên front end cần tạo ra một đường dẫn tương tự để search
 //    http://localhost:8080/api/property/filter?search=addresses.districts.cities.name:'Hồ Chí Minh'
 //    http://localhost:8080/api/property/filter?search=addresses.districts.name:'Thủ Đức'
 //    http://localhost:8080/api/property/filter?search=addresses.districts.cities.name:'Thủ Đức' OR addresses.districts.name:'Thủ Đức'
