@@ -1,11 +1,16 @@
 package edu.codegym.toam.controller;
 
+import com.sipios.springsearch.anotation.SearchSpec;
 import edu.codegym.toam.model.Properties;
+import edu.codegym.toam.repository.PropertiesRepository;
 import edu.codegym.toam.service.properties.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -63,6 +68,19 @@ public class PropertiesRestController {
     @GetMapping("/host/{id}")
     public ResponseEntity<Iterable<Properties>> getHostProperties(@PathVariable Long id) {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesById(id));
+    }
+
+
+    @Autowired
+    PropertiesRepository propertiesRepository;
+
+//    public void CarController(PropertiesRepository propertiesRepository) {
+//        this.propertiesRepository = propertiesRepository;
+//    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<Properties>> searchForCars(@SearchSpec Specification<Properties> specs) {
+        return new ResponseEntity<>(propertiesRepository.findAll(Specification.where(specs)), HttpStatus.OK);
     }
 
 }
