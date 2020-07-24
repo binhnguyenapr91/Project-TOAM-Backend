@@ -48,4 +48,12 @@ public class Account {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

@@ -9,18 +9,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Data
-@AllArgsConstructor
 public class CustomAccountDetail implements UserDetails {
     Account account;
-
+    List<GrantedAuthority> authorities=null;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        return authorities;
+    }
+    public void setAuthorities(List<GrantedAuthority> authorities)
+    {
+        this.authorities=authorities;
     }
 
+    public void setAccount(Account account){
+        this.account = account;
+    }
     @Override
     public String getPassword() {
         return account.getPassword();

@@ -53,8 +53,6 @@ public class AccountRestController {
 
     @PutMapping()
     public ResponseEntity<Account> updateAccount(@RequestBody Account account) {
-
-
         try {
             return ResponseEntity.ok(this.accountService.update(account));
         } catch (Exception e) {
