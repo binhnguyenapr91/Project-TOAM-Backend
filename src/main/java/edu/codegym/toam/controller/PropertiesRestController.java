@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("api/property")
 public class PropertiesRestController {
-    
+
     @Autowired
     IPropertiesService propertiesService;
 
@@ -59,12 +59,12 @@ public class PropertiesRestController {
         try {
             this.propertiesService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-//    Tìm Properties theo host id
+    //    Tìm Properties theo host id
     @GetMapping("/host/{id}")
     public ResponseEntity<Iterable<Properties>> getHostProperties(@PathVariable Long id) {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesById(id));
@@ -83,6 +83,12 @@ public class PropertiesRestController {
 //    http://localhost:8080/api/property/filter?search=addresses.districts.cities.name:'Hồ Chí Minh'
 //    http://localhost:8080/api/property/filter?search=addresses.districts.name:'Thủ Đức'
 //    http://localhost:8080/api/property/filter?search=addresses.districts.cities.name:'Thủ Đức' OR addresses.districts.name:'Thủ Đức'
+
+    //localhost:8080/api/property/filter?search=(addresses.districts.cities.name:'Hồ Chí Minh'
+    // OR addresses.districts.name:'Thủ Đức')
+    // AND bedrooms:1
+    // AND bedrooms:1
+
     @GetMapping("/filter")
     public ResponseEntity<List<Properties>> searchForCars(@SearchSpec Specification<Properties> specs) {
         return new ResponseEntity<>(propertiesRepository.findAll(Specification.where(specs)), HttpStatus.OK);
