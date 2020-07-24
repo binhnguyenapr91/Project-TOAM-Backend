@@ -29,12 +29,17 @@ public class Properties {
     private String description;
     private String images;
     private String videos;
-    private boolean status;
+
     private String notAvailableTime;
 
     @ManyToOne
     @JoinColumn(name = "propertyTypeId")
     private PropertiesTypes propertiesTypes;
+
+    @ManyToOne
+    @JoinColumn(name = "statusId")
+    private Status status;
+
 
     @OneToOne
     @JoinColumn(name = "addressId",unique = true)
@@ -116,11 +121,11 @@ public class Properties {
         this.videos = videos;
     }
 
-    public boolean isStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

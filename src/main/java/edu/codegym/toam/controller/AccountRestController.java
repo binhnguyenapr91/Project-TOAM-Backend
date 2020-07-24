@@ -31,7 +31,6 @@ public class AccountRestController {
         return ResponseEntity.ok(this.accountService.findAllRenter());
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
         try {
