@@ -15,9 +15,6 @@ import java.util.Collections;
 public class CustomAccountDetail implements UserDetails {
     Account account;
 
-//    public CustomAccountDetail(Account account) {
-//        this.account = account;
-//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
