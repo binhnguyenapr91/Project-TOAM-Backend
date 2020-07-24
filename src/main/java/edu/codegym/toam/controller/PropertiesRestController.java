@@ -78,6 +78,11 @@ public class PropertiesRestController {
 //        this.propertiesRepository = propertiesRepository;
 //    }
 
+
+//    Cú pháp search
+//    http://localhost:8080/api/property/filter?search=addresses.districts.cities.name:'Hồ Chí Minh'
+//    http://localhost:8080/api/property/filter?search=addresses.districts.name:'Thủ Đức'
+//    http://localhost:8080/api/property/filter?search=addresses.districts.cities.name:'Thủ Đức' OR addresses.districts.name:'Thủ Đức'
     @GetMapping("/filter")
     public ResponseEntity<List<Properties>> searchForCars(@SearchSpec Specification<Properties> specs) {
         return new ResponseEntity<>(propertiesRepository.findAll(Specification.where(specs)), HttpStatus.OK);
