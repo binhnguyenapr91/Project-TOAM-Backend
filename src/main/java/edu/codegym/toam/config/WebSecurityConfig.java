@@ -41,30 +41,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+       http.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/authenticate").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/account").permitAll()
+                .antMatchers("/accountInfor").access("hasAnyRole('ROLE_HOST', 'ROLE_ADMIN')")
+                .antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/", "/login", "/logout").permitAll()
+                .anyRequest().authenticated()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-        //config for api
-       http.cors().and().csrf().disable();
-//                .authorizeRequests()
-//                .antMatchers("/authenticate").permitAll()
-//                .antMatchers(HttpMethod.GET,"/api/account").permitAll()
-//                .anyRequest().authenticated()
-//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-        //test config
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
-        http.authorizeRequests().antMatchers("/accountInfor").access("hasAnyRole('ROLE_HOST', 'ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
         http.authorizeRequests().and().formLogin()//
-                // Submit URL của trang login
-                .loginProcessingUrl("/j_spring_security_check") // Submit URL
+                .loginProcessingUrl("/j_spring_security_check")
                 .loginPage("/login")//
                 .defaultSuccessUrl("/userAccountInfo")//
                 .failureUrl("/login?error=true")//
                 .usernameParameter("username")//
                 .passwordParameter("password")
-                // Cấu hình cho Logout Page.
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
     }
 }
