@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/property")
+@RequestMapping("/api/property")
 public class PropertiesRestController {
     
     @Autowired
     IPropertiesService propertiesService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<Iterable<Properties>> getProperties() {
         return ResponseEntity.ok(this.propertiesService.findAll());
     }
