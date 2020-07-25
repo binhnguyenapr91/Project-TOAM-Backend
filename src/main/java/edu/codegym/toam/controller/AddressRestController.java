@@ -30,7 +30,6 @@ public class AddressRestController {
 
     @PostMapping()
     public ResponseEntity<Addresses> createAccount(@RequestBody Addresses addresses) {
-
         try {
             return ResponseEntity.ok(this.addressService.create(addresses));
         } catch (Exception e) {
