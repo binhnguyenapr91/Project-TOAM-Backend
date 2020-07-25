@@ -95,9 +95,9 @@ public class PropertiesRestController {
         return new ResponseEntity<>(propertiesRepository.findAll(Specification.where(specs)), HttpStatus.OK);
     }
 
-       @GetMapping("/filter/{key}")
-       public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
-           return ResponseEntity.ok(this.propertiesRepository.filterProperties(key));
-       }
+    @GetMapping("/filter/{key}")
+    public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
+        return ResponseEntity.ok(this.propertiesRepository.filterProperties(key));
+    }
 
 }
