@@ -28,7 +28,7 @@ public class PropertiesService implements IPropertiesService {
 
     @Override
     public void removeById(Long id) {
-            propertiesRepository.deleteById(id);
+        propertiesRepository.deleteById(id);
     }
 
     @Override
@@ -37,11 +37,12 @@ public class PropertiesService implements IPropertiesService {
     }
 
     @Override
-    public Iterable<Properties> findAllPropertiesById(Long id) {
+    public Iterable<Properties> findAllPropertiesByHostId(Long id) {
         return propertiesRepository.findPropertiesByHost_Id(id);
     }
-    //    @Override
-//    public Iterable<Properties> findByLocation(String locationName) {
-//        return propertiesRepository.findPropertiesByAddresses_Districts(locationName);
-//    }
+
+    @Override
+    public Iterable<Properties> findPropertiesByHostIdAndType(Long hostId, Long propertyTypeId) {
+        return propertiesRepository.findPropertiesByHost_IdAndPropertiesTypes_Id(hostId, propertyTypeId);
+    }
 }
