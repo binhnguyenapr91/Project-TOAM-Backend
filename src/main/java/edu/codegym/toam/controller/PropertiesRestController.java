@@ -16,6 +16,9 @@ public class PropertiesRestController {
     @Autowired
     IPropertiesService propertiesService;
 
+    @Autowired
+    PropertiesRepository propertiesRepository;
+
     @GetMapping
     public ResponseEntity<Iterable<Properties>> getProperties() {
         return ResponseEntity.ok(this.propertiesService.findAll());
@@ -65,9 +68,6 @@ public class PropertiesRestController {
     public ResponseEntity<Iterable<Properties>> getHostProperties(@PathVariable Long id) {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesById(id));
     }
-
-    @Autowired
-    PropertiesRepository propertiesRepository;
 
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
