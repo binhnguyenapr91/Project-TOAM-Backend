@@ -1,8 +1,6 @@
 package edu.codegym.toam.controller;
 
-import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.Addresses;
-import edu.codegym.toam.service.account.IAccountService;
 import edu.codegym.toam.service.adrress.IAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class AddressRestController {
     @Autowired
-    IAddressService addressService;
+     IAddressService addressService;
 
     @GetMapping("")
     public ResponseEntity<Iterable<Addresses>> getAccounts() {
@@ -32,7 +30,6 @@ public class AddressRestController {
 
     @PostMapping()
     public ResponseEntity<Addresses> createAccount(@RequestBody Addresses addresses) {
-
         try {
             return ResponseEntity.ok(this.addressService.create(addresses));
         } catch (Exception e) {
