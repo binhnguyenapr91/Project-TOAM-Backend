@@ -18,7 +18,7 @@ public class Account {
     @Column(unique = true,nullable = false)
     private String username;
 
-    @Size(min = 5,max = 50)
+    @Size(min = 5,max = 100)
     @Column(nullable = false)
     private String password;
 
@@ -32,31 +32,7 @@ public class Account {
     private boolean status;
 
     @ManyToOne
-    private Role role;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    Role role;
 
     public String getPassword() {
         return password;
@@ -72,5 +48,13 @@ public class Account {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

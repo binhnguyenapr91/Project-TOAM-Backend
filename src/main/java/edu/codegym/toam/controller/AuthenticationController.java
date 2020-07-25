@@ -3,18 +3,17 @@ package edu.codegym.toam.controller;
 import edu.codegym.toam.model.jwt.AuthenticationRequest;
 import edu.codegym.toam.model.jwt.AuthenticationResponse;
 import edu.codegym.toam.service.account.AccountDetailService;
+import edu.codegym.toam.service.account.CustomAccountDetail;
 import edu.codegym.toam.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("api")
 @CrossOrigin("*")
 public class AuthenticationController {
     @Autowired
@@ -38,8 +37,8 @@ public class AuthenticationController {
             throw new RuntimeException("Incorrect username or password", e);
         }
 
-        final UserDetails userDetails = accountDetailService.loadUserByUsername(authReq.getUsername());
-        final String jwt = this.jwtUtil.generateToken(userDetails);
+        final CustomAccountDetail customAccountDetail = accountDetailService.loadUserByUsername(authReq.getUsername());
+        final String jwt = this.jwtUtil.generateToken(customAccountDetail,customAccountDetail.getAuthorities());
 
         return new AuthenticationResponse(jwt);
     }
