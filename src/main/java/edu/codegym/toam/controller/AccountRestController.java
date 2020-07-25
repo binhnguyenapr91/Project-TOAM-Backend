@@ -46,7 +46,7 @@ public class AccountRestController {
     }
 
     @PostMapping()
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("!hasAnyRole('ROLE_RENTER','ROLE_ADMIN','ROLE_HOST')")
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
 
         try {
@@ -58,7 +58,7 @@ public class AccountRestController {
     }
 
     @PutMapping()
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_RENTER','ROLE_HOST')")
     public ResponseEntity<Account> updateAccount(@RequestBody Account account) {
         try {
             return ResponseEntity.ok(this.accountService.update(account));
