@@ -19,7 +19,7 @@ public class AccountDetailService implements UserDetailsService {
     @Autowired
     AccountRepository accountRepository;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public CustomAccountDetail loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findAccountByUsername(username);
         if (account ==null){
             try {
@@ -29,7 +29,7 @@ public class AccountDetailService implements UserDetailsService {
             }
         }
         String roleNames = this.accountRepository.findAccountByUsername(username).getRole().getName();
-        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> grantList = new ArrayList<>();
         GrantedAuthority authority = new SimpleGrantedAuthority(roleNames);
         grantList.add(authority);
         CustomAccountDetail customAccountDetail= new CustomAccountDetail();

@@ -30,6 +30,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         String jwt = null;
         String username = null;
+        String roleName = null;
         if (authorization != null) {
             jwt = authorization.substring(7);
             username = jwtUtil.extractUsername(jwt);

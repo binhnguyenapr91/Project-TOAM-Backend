@@ -24,7 +24,6 @@ public class CustomAccountDetail implements UserDetails {
     {
         this.authorities=authorities;
     }
-
     public void setAccount(Account account){
         this.account = account;
     }
