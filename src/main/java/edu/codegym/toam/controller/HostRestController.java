@@ -41,7 +41,6 @@ public class HostRestController {
     public ResponseEntity<Iterable<Properties>> Contract() {
         Account currentHost = getCurrentAccount();
         Long id = currentHost.getId();
-
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
     }
 
