@@ -6,7 +6,6 @@ import edu.codegym.toam.service.account.AccountDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -47,9 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
-                .antMatchers("/api/account/host").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/api/account/renter").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/api/account/").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

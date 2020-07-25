@@ -18,7 +18,7 @@ public class Account {
     @Column(unique = true,nullable = false)
     private String username;
 
-    @Size(min = 5,max = 50)
+    @Size(min = 5,max = 100)
     @Column(nullable = false)
     private String password;
 
@@ -33,6 +33,7 @@ public class Account {
 
     @ManyToOne
     Role role;
+
     public String getPassword() {
         return password;
     }
