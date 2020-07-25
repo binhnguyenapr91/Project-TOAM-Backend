@@ -70,7 +70,7 @@ public class AccountRestController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeBlogById(@PathVariable Long id) {
+    public ResponseEntity<String> removeAccountById(@PathVariable Long id) {
         try {
             this.accountService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
