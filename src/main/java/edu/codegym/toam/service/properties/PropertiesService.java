@@ -50,4 +50,5 @@ public class PropertiesService implements IPropertiesService {
     public Iterable<Properties> filterProperties(String key) {
         return propertiesRepository.filterProperties(key);
     }
+
 }

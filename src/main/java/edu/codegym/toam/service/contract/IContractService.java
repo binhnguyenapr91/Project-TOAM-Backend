@@ -8,4 +8,5 @@ public interface IContractService {
     Contracts update(Contracts contracts);
     void removeById(Long id);
     Contracts create(Contracts contracts);
+    Iterable<Contracts> findAllContractsByHostId(Long id);
 }

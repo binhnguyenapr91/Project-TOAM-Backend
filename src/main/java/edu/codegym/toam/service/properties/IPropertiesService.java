@@ -18,4 +18,5 @@ public interface IPropertiesService {
     Iterable<Properties> findPropertiesByHostIdAndType(Long hostId, Long propertyTypeId);
 
     Iterable<Properties> filterProperties(String key);
+
 }

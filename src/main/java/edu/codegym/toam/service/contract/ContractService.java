@@ -34,4 +34,9 @@ public class ContractService implements IContractService {
     public Contracts create(Contracts contracts) {
         return contractRepository.save(contracts);
     }
+
+    @Override
+    public Iterable<Contracts> findAllContractsByHostId(Long id) {
+        return contractRepository.findAllContracts(id);
+    }
 }

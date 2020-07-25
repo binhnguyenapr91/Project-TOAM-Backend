@@ -1,8 +1,10 @@
 package edu.codegym.toam.controller;
 
 import edu.codegym.toam.model.Account;
+import edu.codegym.toam.model.Contracts;
 import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.service.account.IAccountService;
+import edu.codegym.toam.service.contract.IContractService;
 import edu.codegym.toam.service.properties.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ public class HostRestController {
 
     @Autowired
     IAccountService accountService;
+    @Autowired
+    IContractService contractService;
     @Autowired
     IPropertiesService propertiesService;
 
@@ -38,10 +42,10 @@ public class HostRestController {
 
     //Láy tất cả hợp đồng của thằng host này
     @GetMapping("/properties/contract")
-    public ResponseEntity<Iterable<Properties>> Contract() {
+    public ResponseEntity<Iterable<Contracts>> Contract() {
         Account currentHost = getCurrentAccount();
         Long id = currentHost.getId();
-        return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
+        return ResponseEntity.ok(this.contractService.findAllContractsByHostId(id));
     }
 
     private Account getCurrentAccount() {
