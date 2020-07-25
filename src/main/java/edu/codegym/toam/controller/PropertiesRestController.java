@@ -72,7 +72,7 @@ public class PropertiesRestController {
 
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
-        return ResponseEntity.ok(this.propertiesRepository.filterProperties(key));
+        return ResponseEntity.ok(this.propertiesService.filterProperties(key));
     }
 
 }

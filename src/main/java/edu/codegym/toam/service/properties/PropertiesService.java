@@ -45,4 +45,9 @@ public class PropertiesService implements IPropertiesService {
     public Iterable<Properties> findPropertiesByHostIdAndType(Long hostId, Long propertyTypeId) {
         return propertiesRepository.findPropertiesByHost_IdAndPropertiesTypes_Id(hostId, propertyTypeId);
     }
+
+    @Override
+    public Iterable<Properties> filterProperties(String key) {
+        return propertiesRepository.filterProperties(key);
+    }
 }
