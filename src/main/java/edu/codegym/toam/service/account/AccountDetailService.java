@@ -18,10 +18,11 @@ import java.util.List;
 public class AccountDetailService implements UserDetailsService {
     @Autowired
     AccountRepository accountRepository;
+
     @Override
     public CustomAccountDetail loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository.findAccountByUsername(username);
-        if (account ==null){
+        if (account == null) {
             try {
                 throw new UserPrincipalNotFoundException(username);
             } catch (UserPrincipalNotFoundException e) {
