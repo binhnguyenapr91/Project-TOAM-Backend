@@ -84,14 +84,22 @@ public class PropertiesRestController {
 //    http://localhost:8080/api/property/filter?search=addresses.districts.name:'Thủ Đức'
 //    http://localhost:8080/api/property/filter?search=addresses.districts.cities.name:'Thủ Đức' OR addresses.districts.name:'Thủ Đức'
 
-    //localhost:8080/api/property/filter?search=(addresses.districts.cities.name:'Hồ Chí Minh'
-    // OR addresses.districts.name:'Thủ Đức')
-    // AND bedrooms:1
-    // AND bedrooms:1
+//    localhost:8080/api/property/filter?search=(addresses.districts.cities.name:'Hồ Chí Minh'
+//     OR addresses.districts.name:'Thủ Đức'
+//     OR name:'green')
+//     AND bedrooms:1
+//     AND bathrooms:1
+
+//*các trường phải có giá trị mặc định không sẽ bị lỗi
 
     @GetMapping("/filter")
-    public ResponseEntity<List<Properties>> searchForCars(@SearchSpec Specification<Properties> specs) {
+    public ResponseEntity<List<Properties>> searchForProperties(@SearchSpec Specification<Properties> specs) {
         return new ResponseEntity<>(propertiesRepository.findAll(Specification.where(specs)), HttpStatus.OK);
     }
+
+       @GetMapping("/filter/{key}")
+       public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
+           return ResponseEntity.ok(this.propertiesRepository.filterProperties(key));
+       }
 
 }
