@@ -16,5 +16,6 @@ public interface PropertiesRepository extends JpaRepository<Properties, Long>, J
             + "or p.addresses.street like CONCAT('%',:keyword,'%')"
             + "or p.name like CONCAT('%',:keyword,'%')"
     )
+
     Iterable<Properties> filterProperties(String keyword);
 }

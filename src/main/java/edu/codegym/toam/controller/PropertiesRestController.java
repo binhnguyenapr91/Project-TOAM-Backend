@@ -70,14 +70,12 @@ public class PropertiesRestController {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesById(id));
     }
 
-
     @Autowired
     PropertiesRepository propertiesRepository;
 
 //    public void CarController(PropertiesRepository propertiesRepository) {
 //        this.propertiesRepository = propertiesRepository;
 //    }
-
 
 //    Cú pháp search, bên front end cần tạo ra một đường dẫn tương tự để search
 //    http://localhost:8080/api/property/filter?search=addresses.districts.cities.name:'Hồ Chí Minh'
