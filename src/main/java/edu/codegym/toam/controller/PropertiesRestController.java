@@ -69,7 +69,7 @@ public class PropertiesRestController {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
     }
 
-
+//    Tìm properties theo quận,thành phố, tên properties, địa chỉ
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
         return ResponseEntity.ok(this.propertiesService.filterProperties(key));
