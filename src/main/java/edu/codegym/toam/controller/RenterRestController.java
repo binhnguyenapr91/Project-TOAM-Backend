@@ -54,19 +54,6 @@ public class RenterRestController {
         return ResponseEntity.ok(this.contractService.findAllContractsByRenterId(id));
     }
 
-//    //    Tạo contracts từ current renter
-//    @PostMapping("/contracts/create")
-//    public ResponseEntity<Contracts> createContract(@RequestBody Contracts contracts) {
-////        Account currentHost = getCurrentAccount();
-////        contracts.setRenter(currentHost);
-////        System.out.println(currentHost.getId());
-//        try {
-//            return ResponseEntity.ok(this.contractService.create(contracts));
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-//        }
-//    }
-
     //    Tạo contracts từ current renter
     @PostMapping("/contracts/create")
     public ResponseEntity<Contracts> createContract(@RequestBody Contracts contracts) {
@@ -82,20 +69,20 @@ public class RenterRestController {
         }
     }
 
-    //    Hủy contract (change contract status)
-    @PutMapping("/contracts/status")
-    public ResponseEntity<Contracts> status(@RequestBody Contracts contracts) {
-        Account currentHost = getCurrentAccount();
-        Long id = currentHost.getId();
-        contracts.setRenter(currentHost);
-        contracts.setStatus(true);
-        try {
-            System.out.println(contracts.getId());
-            return ResponseEntity.ok(this.contractService.update(contracts));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        }
-    }
+//    //    Hủy contract (change contract status)
+//    @PutMapping("/contracts/status")
+//    public ResponseEntity<Contracts> status(@RequestBody Contracts contracts) {
+//        Account currentHost = getCurrentAccount();
+//        Long id = currentHost.getId();
+//        contracts.setRenter(currentHost);
+//        contracts.setStatus(false);
+//        try {
+//            System.out.println(contracts.getId());
+//            return ResponseEntity.ok(this.contractService.update(contracts));
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+//        }
+//    }
 
     //    Hiển thị tất cả properties có trong contract của thằng renter vừa đăng nhập
     @GetMapping("/properties")

@@ -44,7 +44,7 @@ public class PropertiesRestController {
     }
 
     @PutMapping()
-    public ResponseEntity<Properties> updateAccount(@RequestBody Properties properties) {
+    public ResponseEntity<Properties> updateProperties(@RequestBody Properties properties) {
 
         try {
             return ResponseEntity.ok(this.propertiesService.update(properties));
@@ -54,7 +54,7 @@ public class PropertiesRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeBlogById(@PathVariable Long id) {
+    public ResponseEntity<String> removePropertyById(@PathVariable Long id) {
         try {
             this.propertiesService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);

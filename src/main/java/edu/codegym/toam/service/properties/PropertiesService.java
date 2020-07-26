@@ -1,6 +1,8 @@
 package edu.codegym.toam.service.properties;
 
+import edu.codegym.toam.model.Addresses;
 import edu.codegym.toam.model.Properties;
+import edu.codegym.toam.repository.AddressRepository;
 import edu.codegym.toam.repository.PropertiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 public class PropertiesService implements IPropertiesService {
     @Autowired
     PropertiesRepository propertiesRepository;
+    @Autowired
+    AddressRepository addressRepository;
 
     @Override
     public Iterable<Properties> findAll() {
@@ -33,6 +37,8 @@ public class PropertiesService implements IPropertiesService {
 
     @Override
     public Properties create(Properties properties) {
+        Addresses addresses = properties.getAddresses();
+        addressRepository.save(addresses);
         return propertiesRepository.save(properties);
     }
 
