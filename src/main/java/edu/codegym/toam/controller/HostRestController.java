@@ -7,6 +7,7 @@ import edu.codegym.toam.service.account.IAccountService;
 import edu.codegym.toam.service.contract.IContractService;
 import edu.codegym.toam.service.properties.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +24,28 @@ public class HostRestController {
     IContractService contractService;
     @Autowired
     IPropertiesService propertiesService;
+
+    //Lấy thông tin của thằng host vừa đăng nhập
+    @GetMapping("/information")
+    public ResponseEntity<Account> hostInfo() {
+        Account currentHost = getCurrentAccount();
+        Long id = currentHost.getId();
+        return ResponseEntity.ok(this.accountService.findById(id));
+    }
+
+    //Sửa đổi host info
+    @PutMapping("/information/edit")
+    public ResponseEntity<Account> hostInfoEdit(@RequestBody Account updatedAccount) {
+        Account currentHost = getCurrentAccount();
+        Long id = currentHost.getId();
+    //Đảm bảo update vào đúng info của thằng host vừa đăng nhập
+        updatedAccount.setId(id);
+        try {
+            return ResponseEntity.ok(this.accountService.update(updatedAccount));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
 
     //    Hiển thị tất cả properties của thằng host vừa đăng nhập
     @GetMapping("/properties")
@@ -41,7 +64,7 @@ public class HostRestController {
     }
 
     //Láy tất cả hợp đồng của thằng host này
-    @GetMapping("/properties/contracts")
+    @GetMapping("/contracts")
     public ResponseEntity<Iterable<Contracts>> Contract() {
         Account currentHost = getCurrentAccount();
         Long id = currentHost.getId();
