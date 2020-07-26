@@ -33,7 +33,7 @@ public class HostRestController {
     }
 
     //    Phân loại nhà của thằng host vừa đăng nhập
-    @GetMapping("/properties/filter/{propertyTypeId}")
+    @GetMapping("/properties/propertyType/{propertyTypeId}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable Long propertyTypeId) {
         Account currentHost = getCurrentAccount();
         Long hostId = currentHost.getId();
@@ -41,7 +41,7 @@ public class HostRestController {
     }
 
     //Láy tất cả hợp đồng của thằng host này
-    @GetMapping("/properties/contract")
+    @GetMapping("/properties/contracts")
     public ResponseEntity<Iterable<Contracts>> Contract() {
         Account currentHost = getCurrentAccount();
         Long id = currentHost.getId();
