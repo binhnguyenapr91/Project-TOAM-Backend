@@ -9,13 +9,20 @@ public interface PropertiesRepository extends JpaRepository<Properties, Long>, J
 
     Iterable<Properties> findPropertiesByHost_Id(Long hostId);
 
-    @Query(value = "select p from Properties p where "
+    Iterable<Properties> findPropertiesByHost_IdAndPropertiesTypes_Id(Long hostId, Long propertiesTypeId);
 
+
+//    @Query(value = "select p from Properties p where "
+//            + "p.host = :hostId and p.propertiesTypes = :propertiesTypeId"
+//    )
+//    Iterable<Properties> findPropertiesByHost_IdAndPropertiesTypes_Id(Long hostId, Long propertiesTypeId);
+
+
+    @Query(value = "select p from Properties p where "
             + "p.addresses.districts.cities.name like CONCAT('%',:keyword,'%')"
             + "or p.addresses.districts.name like CONCAT('%',:keyword,'%')"
             + "or p.addresses.street like CONCAT('%',:keyword,'%')"
             + "or p.name like CONCAT('%',:keyword,'%')"
     )
-
     Iterable<Properties> filterProperties(String keyword);
 }

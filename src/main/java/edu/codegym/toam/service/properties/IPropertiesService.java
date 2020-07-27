@@ -13,6 +13,10 @@ public interface IPropertiesService {
 
     Properties create(Properties properties);
 
-    Iterable<Properties> findAllPropertiesById(Long id);
+    Iterable<Properties> findAllPropertiesByHostId(Long id);
+
+    Iterable<Properties> findPropertiesByHostIdAndType(Long hostId, Long propertyTypeId);
+
+    Iterable<Properties> filterProperties(String key);
 
 }

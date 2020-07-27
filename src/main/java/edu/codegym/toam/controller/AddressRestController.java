@@ -41,7 +41,6 @@ public class AddressRestController {
     @PutMapping()
     public ResponseEntity<Addresses> updateAccount(@RequestBody Addresses addresses) {
 
-
         try {
             return ResponseEntity.ok(this.addressService.update(addresses));
         } catch (Exception e) {
