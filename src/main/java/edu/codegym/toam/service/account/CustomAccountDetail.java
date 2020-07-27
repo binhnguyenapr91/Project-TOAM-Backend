@@ -1,37 +1,73 @@
 package edu.codegym.toam.service.account;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.codegym.toam.model.Account;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
-@Data
 public class CustomAccountDetail implements UserDetails {
-    Account account;
-    List<GrantedAuthority> authorities=null;
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
+
+    private String username;
+
+    private String email;
+
+    @JsonIgnore
+    private String password;
+
+    private Collection<? extends GrantedAuthority> authorities;
+
+    public CustomAccountDetail(Long id, String username, String email, String password,
+                           Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.authorities = authorities;
+    }
+
+    public static CustomAccountDetail build(Account user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .collect(Collectors.toList());
+
+        return new CustomAccountDetail(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                authorities);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
-    public void setAuthorities(List<GrantedAuthority> authorities)
-    {
-        this.authorities=authorities;
+
+    public Long getId() {
+        return id;
     }
-    public void setAccount(Account account){
-        this.account = account;
+
+    public String getEmail() {
+        return email;
     }
+
     @Override
     public String getPassword() {
-        return account.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return account.getUsername();
+        return username;
     }
 
     @Override
@@ -54,11 +90,13 @@ public class CustomAccountDetail implements UserDetails {
         return true;
     }
 
-    public Long getId() {
-        return null;
-    }
-
-    public String getEmail() {
-        return null;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        CustomAccountDetail accountDetail = (CustomAccountDetail) o;
+        return Objects.equals(id, accountDetail.id);
     }
 }
