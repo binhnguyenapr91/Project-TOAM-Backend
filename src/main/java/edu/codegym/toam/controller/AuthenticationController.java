@@ -7,9 +7,9 @@ import edu.codegym.toam.payload.request.*;
 import edu.codegym.toam.payload.response.*;
 import edu.codegym.toam.repository.AccountRepository;
 import edu.codegym.toam.repository.RoleRepository;
+import edu.codegym.toam.security.jwt.JwtUtils;
 import edu.codegym.toam.service.account.AccountDetailService;
 import edu.codegym.toam.service.account.CustomAccountDetail;
-import edu.codegym.toam.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,7 +36,7 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtUtils jwtUtil;
 
     @Autowired
     PasswordEncoder encoder;
@@ -61,7 +61,7 @@ public class AuthenticationController {
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        final String jwt = this.jwtUtil.generateToken(authentication);
+        final String jwt = this.jwtUtil.generateJwtToken(authentication);
         CustomAccountDetail accountDetail = (CustomAccountDetail) authentication.getPrincipal();
         List<String> roles = accountDetail.getAuthorities().stream()
                 .map(item -> item.getAuthority()).collect(Collectors.toList());

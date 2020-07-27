@@ -16,7 +16,7 @@ public class TestController {
     }
 
     @GetMapping("/renter")
-    @PreAuthorize("hasRole('RENTER') or hasRole('HOST') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('RENTER')")
     public String userAccess() {
         return "RENTER Content.";
     }
