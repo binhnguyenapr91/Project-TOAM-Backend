@@ -1,6 +1,7 @@
 package edu.codegym.toam.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Date;
 })
 
 @Entity
+@ScriptAssert(lang = "javascript", script = "_this.createDate.before(_this.beginTime)")
 public class Contracts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +20,6 @@ public class Contracts {
 
     @CreationTimestamp
     private Date createTime;
-
     private Date beginTime;
     private Date endTime;
     private boolean status;
