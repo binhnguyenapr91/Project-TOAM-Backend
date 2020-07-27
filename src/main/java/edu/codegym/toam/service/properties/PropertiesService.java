@@ -57,4 +57,9 @@ public class PropertiesService implements IPropertiesService {
         return propertiesRepository.filterProperties(key);
     }
 
+    @Override
+    public Iterable<Properties> findPropertiesByType(Long propertyTypeId) {
+        return propertiesRepository.findPropertiesByPropertiesTypes_Id(propertyTypeId);
+    }
+
 }
