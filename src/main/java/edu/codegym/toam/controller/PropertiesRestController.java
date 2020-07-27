@@ -33,10 +33,10 @@ public class PropertiesRestController {
         }
     }
 
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity<Properties> createProperties(@RequestBody Properties properties) {
-
         try {
+            System.out.println(properties.getId());
             return ResponseEntity.ok(this.propertiesService.create(properties));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
