@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("api/contract")
+
 public class ContractRestController {
     @Autowired
     IContractService contractService;
@@ -33,6 +34,7 @@ public class ContractRestController {
     }
 
     @PostMapping()
+//    @PostAuthorize("hasRole('ROLE_ADMIN')")
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
 
     public ResponseEntity<Contracts> createContract(@RequestBody Contracts contracts) {

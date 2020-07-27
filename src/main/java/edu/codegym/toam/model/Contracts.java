@@ -6,13 +6,12 @@ import org.hibernate.validator.constraints.ScriptAssert;
 import javax.persistence.*;
 import java.util.Date;
 
+@ScriptAssert(lang = "javascript", script = "_this.createTime.before(_this.beginTime)")
 //Không cho phép 1 renter tạo nhiều contracts với cùng 1 thời gian bắt đầu và cùng 1 địa chỉ 1renterId
 @Table(uniqueConstraints={
         @UniqueConstraint(columnNames = {"beginTime","renterId", "propertiesId"})
 })
-
 @Entity
-@ScriptAssert(lang = "javascript", script = "_this.createDate.before(_this.beginTime)")
 public class Contracts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
