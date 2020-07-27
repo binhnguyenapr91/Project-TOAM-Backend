@@ -16,6 +16,9 @@ public class PropertiesRestController {
     @Autowired
     IPropertiesService propertiesService;
 
+    @Autowired
+    PropertiesRepository propertiesRepository;
+
     @GetMapping
     public ResponseEntity<Iterable<Properties>> getProperties() {
         return ResponseEntity.ok(this.propertiesService.findAll());
@@ -30,10 +33,10 @@ public class PropertiesRestController {
         }
     }
 
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity<Properties> createProperties(@RequestBody Properties properties) {
-
         try {
+            System.out.println(properties.getId());
             return ResponseEntity.ok(this.propertiesService.create(properties));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
@@ -41,7 +44,7 @@ public class PropertiesRestController {
     }
 
     @PutMapping()
-    public ResponseEntity<Properties> updateAccount(@RequestBody Properties properties) {
+    public ResponseEntity<Properties> updateProperties(@RequestBody Properties properties) {
 
         try {
             return ResponseEntity.ok(this.propertiesService.update(properties));
@@ -51,7 +54,7 @@ public class PropertiesRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeBlogById(@PathVariable Long id) {
+    public ResponseEntity<String> removePropertyById(@PathVariable Long id) {
         try {
             this.propertiesService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -63,15 +66,13 @@ public class PropertiesRestController {
     //    Tìm Properties theo host id
     @GetMapping("/host/{id}")
     public ResponseEntity<Iterable<Properties>> getHostProperties(@PathVariable Long id) {
-        return ResponseEntity.ok(this.propertiesService.findAllPropertiesById(id));
+        return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
     }
 
-    @Autowired
-    PropertiesRepository propertiesRepository;
-
+//    Tìm properties theo quận,thành phố, tên properties, địa chỉ
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
-        return ResponseEntity.ok(this.propertiesRepository.filterProperties(key));
+        return ResponseEntity.ok(this.propertiesService.filterProperties(key));
     }
 
     //    Phân loại nhà
