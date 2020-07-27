@@ -46,7 +46,7 @@ public class AccountRestController {
     }
 
     @PostMapping()
-    @PreAuthorize("!hasAnyRole('ROLE_RENTER','ROLE_ADMIN','ROLE_HOST')")
+    @PreAuthorize("hasAnyRole('ROLE_RENTER','ROLE_ADMIN','ROLE_HOST')")
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
 
         try {
