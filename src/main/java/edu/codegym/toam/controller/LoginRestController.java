@@ -20,8 +20,6 @@ public class LoginRestController {
 
     @Autowired
     IAccountService accountService;
-
-    //    Gửi trả lại account vừa đăng nhập
     @PostMapping("/login")
     public HttpEntity<Account> loginSuccess() {
         try {

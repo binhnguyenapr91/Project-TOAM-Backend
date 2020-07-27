@@ -35,7 +35,6 @@ public class AddressRestController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-
     }
 
     @PutMapping()
@@ -46,7 +45,6 @@ public class AddressRestController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-
     }
 
     @DeleteMapping("/{id}")
@@ -58,5 +56,4 @@ public class AddressRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 }
