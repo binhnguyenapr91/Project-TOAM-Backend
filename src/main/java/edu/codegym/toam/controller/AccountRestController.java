@@ -22,12 +22,12 @@ public class AccountRestController {
         return ResponseEntity.ok(this.accountService.findAll());
     }
 
-    //    Lấy danh sách tất cả những thằng chủ nhà
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/host")
     public ResponseEntity<Iterable<Account>> getHost() {
         return ResponseEntity.ok(this.accountService.findAllHost());
     }
+
 
     //Lấy danh sách tất cả những thằng thuê nhàstreet
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -47,15 +47,13 @@ public class AccountRestController {
     }
 
     @PostMapping()
-    @PreAuthorize("!hasAnyRole('ROLE_RENTER','ROLE_ADMIN','ROLE_HOST')")
+    @PreAuthorize("hasAnyRole('ROLE_RENTER','ROLE_ADMIN','ROLE_HOST')")
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
-
         try {
             return ResponseEntity.ok(this.accountService.create(account));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-
     }
 
     @PutMapping()
@@ -66,12 +64,11 @@ public class AccountRestController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeBlogById(@PathVariable Long id) {
+    public ResponseEntity<String> removeAccountById(@PathVariable Long id) {
         try {
             this.accountService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
