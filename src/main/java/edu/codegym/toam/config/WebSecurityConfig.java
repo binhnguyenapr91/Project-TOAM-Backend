@@ -46,7 +46,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //config for jwt auth api
         http.cors().and().csrf().disable()
                 .authorizeRequests()
+//                .antMatchers("/api/authenticate").permitAll()
+//                .antMatchers("/api/account/**").permitAll()
+//                .antMatchers("/api/role").permitAll()
+                .antMatchers("/api/property/**").permitAll()
                 .antMatchers("/api/authenticate").permitAll()
+
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
