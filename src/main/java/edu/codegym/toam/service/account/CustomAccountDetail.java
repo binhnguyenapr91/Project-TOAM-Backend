@@ -53,4 +53,12 @@ public class CustomAccountDetail implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public Long getId() {
+        return null;
+    }
+
+    public String getEmail() {
+        return null;
+    }
 }
