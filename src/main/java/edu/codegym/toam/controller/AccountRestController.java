@@ -65,7 +65,6 @@ public class AccountRestController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

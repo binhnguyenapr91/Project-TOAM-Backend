@@ -15,4 +15,5 @@ public interface IPropertiesService {
 
     Iterable<Properties> findAllPropertiesById(Long id);
 
+    Iterable<Properties> findPropertiesByType(Long propertyTypeId);
 }

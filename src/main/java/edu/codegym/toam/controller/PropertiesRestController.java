@@ -74,4 +74,9 @@ public class PropertiesRestController {
         return ResponseEntity.ok(this.propertiesRepository.filterProperties(key));
     }
 
+    //    Phân loại nhà
+    @GetMapping("/properties/propertyType/{propertyTypeId}")
+    public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable Long propertyTypeId) {
+        return ResponseEntity.ok(this.propertiesService.findPropertiesByType(propertyTypeId));
+    }
 }
