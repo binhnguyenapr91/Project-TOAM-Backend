@@ -60,9 +60,20 @@ public class ContractRestController {
         try {
             this.contractService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
+    //    Láy tất cả hợp đồng theo hostID
+    @GetMapping("host/{hostId}")
+    public ResponseEntity<Iterable<Contracts>> getContractByHost(@PathVariable Long hostId) {
+        return ResponseEntity.ok(this.contractService.findAllContractsByHostId(hostId));
+    }
+
+    //    Láy tất cả hợp đồng theo renterID
+    @GetMapping("renter/{renterId}")
+    public ResponseEntity<Iterable<Contracts>> getContractRenter(@PathVariable Long renterId) {
+        return ResponseEntity.ok(this.contractService.findAllContractsByRenterId(renterId));
+    }
 }
