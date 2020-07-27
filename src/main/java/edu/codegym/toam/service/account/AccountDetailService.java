@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,22 +21,11 @@ public class AccountDetailService implements UserDetailsService {
     AccountRepository accountRepository;
 
     @Override
-    public CustomAccountDetail loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountRepository.findAccountByUsername(username);
-        if (account == null) {
-            try {
-                throw new UserPrincipalNotFoundException(username);
-            } catch (UserPrincipalNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        String roleNames = this.accountRepository.findAccountByUsername(username).getRole().getName();
-        List<GrantedAuthority> grantList = new ArrayList<>();
-        GrantedAuthority authority = new SimpleGrantedAuthority(roleNames);
-        grantList.add(authority);
-        CustomAccountDetail customAccountDetail= new CustomAccountDetail();
-        customAccountDetail.setAccount(account);
-        customAccountDetail.setAuthorities(grantList);
-        return customAccountDetail;
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Account user = accountRepository.findAccountByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+
+        return CustomAccountDetail.build(user);
     }
 }
