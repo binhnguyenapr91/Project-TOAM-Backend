@@ -35,19 +35,16 @@ public class AddressRestController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-
     }
 
     @PutMapping()
     public ResponseEntity<Addresses> updateAccount(@RequestBody Addresses addresses) {
-
 
         try {
             return ResponseEntity.ok(this.addressService.update(addresses));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
-
     }
 
     @DeleteMapping("/{id}")
@@ -59,5 +56,4 @@ public class AddressRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 }

@@ -34,25 +34,4 @@ public class RoleController {
         }
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
-
-//    @GetMapping("/host")
-//    public ResponseEntity<Role> getRoleHost() {
-//        Optional<Role> role = roleService.findById((long) 2);
-//        if (role.isPresent()) {
-//            Role role1 = role.get();
-//            return new ResponseEntity<>(role1, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
-//
-//    @GetMapping("/renter")
-//    public ResponseEntity<Role> getRoleRenter() {
-//        Optional<Role> role = roleService.findById((long) 4);
-//        if (role.isPresent()) {
-//            Role role1 = role.get();
-//            return new ResponseEntity<>(role1, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
-
 }

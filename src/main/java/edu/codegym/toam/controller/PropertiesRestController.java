@@ -1,15 +1,14 @@
 package edu.codegym.toam.controller;
-import com.sipios.springsearch.anotation.SearchSpec;
+
 import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.repository.PropertiesRepository;
 import edu.codegym.toam.service.properties.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -18,6 +17,9 @@ public class PropertiesRestController {
 
     @Autowired
     IPropertiesService propertiesService;
+
+    @Autowired
+    PropertiesRepository propertiesRepository;
 
     @GetMapping
     public ResponseEntity<Iterable<Properties>> getProperties() {
@@ -33,10 +35,10 @@ public class PropertiesRestController {
         }
     }
 
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity<Properties> createProperties(@RequestBody Properties properties) {
-
         try {
+            System.out.println(properties.getId());
             return ResponseEntity.ok(this.propertiesService.create(properties));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
@@ -44,7 +46,7 @@ public class PropertiesRestController {
     }
 
     @PutMapping()
-    public ResponseEntity<Properties> updateAccount(@RequestBody Properties properties) {
+    public ResponseEntity<Properties> updateProperties(@RequestBody Properties properties) {
 
         try {
             return ResponseEntity.ok(this.propertiesService.update(properties));
@@ -54,7 +56,7 @@ public class PropertiesRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeBlogById(@PathVariable Long id) {
+    public ResponseEntity<String> removePropertyById(@PathVariable Long id) {
         try {
             this.propertiesService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -66,37 +68,17 @@ public class PropertiesRestController {
     //    Tìm Properties theo host id
     @GetMapping("/host/{id}")
     public ResponseEntity<Iterable<Properties>> getHostProperties(@PathVariable Long id) {
-        return ResponseEntity.ok(this.propertiesService.findAllPropertiesById(id));
+        return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
     }
 
-    @Autowired
-    PropertiesRepository propertiesRepository;
-
-//    public void CarController(PropertiesRepository propertiesRepository) {
-//        this.propertiesRepository = propertiesRepository;
-//    }
-
-//    Cú pháp search, bên front end cần tạo ra một đường dẫn tương tự để search
-//    http://localhost:8080/api/property/filter?search=addresses.districts.cities.name:'Hồ Chí Minh'
-//    http://localhost:8080/api/property/filter?search=addresses.districts.name:'Thủ Đức'
-//    http://localhost:8080/api/property/filter?search=addresses.districts.cities.name:'Thủ Đức' OR addresses.districts.name:'Thủ Đức'
-
-//    localhost:8080/api/property/filter?search=(addresses.districts.cities.name:'Hồ Chí Minh'
-//     OR addresses.districts.name:'Thủ Đức'
-//     OR name:'green')
-//     AND bedrooms:1
-//     AND bathrooms:1
-
-//*các trường phải có giá trị mặc định không sẽ bị lỗi
-
-    @GetMapping("/filter")
-    public ResponseEntity<List<Properties>> searchForProperties(@SearchSpec Specification<Properties> specs) {
-        return new ResponseEntity<>(propertiesRepository.findAll(Specification.where(specs)), HttpStatus.OK);
+    //    Tìm properties theo quận,thành phố, tên properties, địa chỉ
+    @GetMapping("/filter/{key}")
+    public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
+        return ResponseEntity.ok(this.propertiesService.filterProperties(key));
     }
-
-       @GetMapping("/filter/{key}")
-       public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
-           return ResponseEntity.ok(this.propertiesRepository.filterProperties(key));
-       }
-
+    // tim kiem phan loai nha
+    @GetMapping("/type/{name}")
+    public ResponseEntity<Iterable<Properties>> searchPropertyType(@PathVariable String name) {
+        return ResponseEntity.ok(this.propertiesService.findAllByPropertiesTypes(name));
+    }
 }

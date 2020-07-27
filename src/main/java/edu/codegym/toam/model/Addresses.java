@@ -5,6 +5,10 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"street","districtsId"})
+})
+
 @Entity
 @Data
 public class Addresses {
@@ -16,6 +20,7 @@ public class Addresses {
     private String street;
 
     @ManyToOne
+    @JoinColumn(name = "districtsId")
     private Districts districts;
 
     public Long getId() {

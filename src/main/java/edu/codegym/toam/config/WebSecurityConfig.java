@@ -1,6 +1,5 @@
 package edu.codegym.toam.config;
 
-
 import edu.codegym.toam.filter.JwtRequestFilter;
 import edu.codegym.toam.service.account.AccountDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-
-        //config for jwt auth api
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
@@ -59,21 +55,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-        //test basic auth
-//        http.csrf().disable();
-//        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
-//        http.authorizeRequests().antMatchers("/accountInfor").access("hasAnyRole('ROLE_HOST', 'ROLE_ADMIN')");
-//        http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
-//        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
-//        http.authorizeRequests().anyRequest().authenticated();
-//        http.authorizeRequests().and().formLogin()//
-//                .loginProcessingUrl("/j_spring_security_check")
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/userAccountInfo")
-//                .failureUrl("/login?error=true")
-//                .usernameParameter("username")
-//                .passwordParameter("password")
-//                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
     }
 }
