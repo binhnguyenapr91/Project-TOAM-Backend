@@ -2,7 +2,6 @@ package edu.codegym.toam.controller;
 
 import edu.codegym.toam.model.Contracts;
 import edu.codegym.toam.service.contract.IContractService;
-import edu.codegym.toam.service.properties.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +15,15 @@ public class ContractRestController {
     IContractService contractService;
 
     @GetMapping("")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<Iterable<Contracts>> getContracts() {
         return ResponseEntity.ok(this.contractService.findAll());
     }
 
     @GetMapping("/{id}")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<Contracts> getContractById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(this.contractService.findById(id));
@@ -30,15 +33,19 @@ public class ContractRestController {
     }
 
     @PostMapping()
-    public ResponseEntity<Contracts> createContract(@RequestBody Contracts properties) {
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
+    public ResponseEntity<Contracts> createContract(@RequestBody Contracts contracts) {
         try {
-            return ResponseEntity.ok(this.contractService.create(properties));
+            return ResponseEntity.ok(this.contractService.create(contracts));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
     }
 
     @PutMapping()
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<Contracts> updateContract(@RequestBody Contracts properties) {
 
         try {
