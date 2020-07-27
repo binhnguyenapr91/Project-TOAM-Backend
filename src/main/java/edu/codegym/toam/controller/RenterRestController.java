@@ -68,22 +68,6 @@ public class RenterRestController {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
     }
-
-//    //    Hủy contract (change contract status)
-//    @PutMapping("/contracts/status")
-//    public ResponseEntity<Contracts> status(@RequestBody Contracts contracts) {
-//        Account currentHost = getCurrentAccount();
-//        Long id = currentHost.getId();
-//        contracts.setRenter(currentHost);
-//        contracts.setStatus(false);
-//        try {
-//            System.out.println(contracts.getId());
-//            return ResponseEntity.ok(this.contractService.update(contracts));
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-//        }
-//    }
-
     //    Hiển thị tất cả properties có trong contract của thằng renter vừa đăng nhập
     @GetMapping("/properties")
     public ResponseEntity<Iterable<Properties>> hostProperties() {
