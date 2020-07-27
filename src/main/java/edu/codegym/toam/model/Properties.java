@@ -42,7 +42,7 @@ public class Properties {
 
 
     @OneToOne
-    @JoinColumn(name = "addressId",unique = true)
+    @JoinColumn(name = "addressId")
     private Addresses addresses;
 
     @ManyToOne
