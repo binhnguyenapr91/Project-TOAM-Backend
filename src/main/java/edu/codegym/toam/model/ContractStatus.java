@@ -16,7 +16,6 @@ public class ContractStatus {
     private String name;
 
     public ContractStatus() {
-        this.id = (long) 1;
     }
 
     public Long getId() {
