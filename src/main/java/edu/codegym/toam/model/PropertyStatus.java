@@ -16,7 +16,6 @@ public class PropertyStatus {
     private String name;
 
     public PropertyStatus() {
-        this.id=(long)1;
     }
 
     public Long getId() {
