@@ -81,7 +81,6 @@ public class AccountRestController {
         }
     }
 
-
     //    Xóa account điều kiện ràng buộc là ko có bất kỳ hóa đơn nào
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("delete/{id}")
