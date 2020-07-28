@@ -1,6 +1,8 @@
 package edu.codegym.toam.controller;
 
+import edu.codegym.toam.model.Comments;
 import edu.codegym.toam.model.Properties;
+import edu.codegym.toam.service.comments.ICommentsService;
 import edu.codegym.toam.service.contract.IContractService;
 import edu.codegym.toam.service.properties.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class PropertiesRestController {
 
     @Autowired
     IContractService contractService;
+
+    @Autowired
+    ICommentsService commentsService;
 
     @GetMapping
     public ResponseEntity<Iterable<Properties>> getProperties() {
@@ -85,6 +90,12 @@ public class PropertiesRestController {
     @GetMapping("/properties/propertyType/{propertyTypeId}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable Long propertyTypeId) {
         return ResponseEntity.ok(this.propertiesService.findPropertiesByType(propertyTypeId));
+    }
+
+    //    Lấy tất cả comments của 1 property
+    @GetMapping("/{propertyId}/comments")
+    public ResponseEntity<Iterable<Comments>> getPropertyComments(@PathVariable Long propertyId) {
+        return ResponseEntity.ok(this.commentsService.findAllCommentByPropertyId(propertyId));
     }
 
 }

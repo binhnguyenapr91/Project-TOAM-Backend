@@ -2,6 +2,7 @@ package edu.codegym.toam.service.properties;
 
 import edu.codegym.toam.model.Addresses;
 import edu.codegym.toam.model.Properties;
+import edu.codegym.toam.model.PropertyStatus;
 import edu.codegym.toam.repository.AddressRepository;
 import edu.codegym.toam.repository.PropertiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class PropertiesService implements IPropertiesService {
     public Properties create(Properties properties) {
         Addresses addresses = properties.getAddresses();
         addressRepository.save(addresses);
+        properties.setPropertyStatus(new PropertyStatus());
         return propertiesRepository.save(properties);
     }
 

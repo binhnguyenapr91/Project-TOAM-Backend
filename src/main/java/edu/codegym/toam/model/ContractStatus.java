@@ -9,14 +9,14 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class PropertyStatus {
+public class ContractStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    public PropertyStatus() {
-        this.id=(long)1;
+    public ContractStatus() {
+        this.id = (long) 1;
     }
 
     public Long getId() {

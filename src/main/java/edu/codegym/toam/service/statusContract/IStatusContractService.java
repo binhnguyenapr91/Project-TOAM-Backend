@@ -1,11 +1,11 @@
 package edu.codegym.toam.service.statusContract;
 
-import edu.codegym.toam.model.Status;
+import edu.codegym.toam.model.ContractStatus;
 
 public interface IStatusContractService {
-    Iterable<Status> findAll();
-    Status findById(Long id);
-    Status update(Status status);
+    Iterable<ContractStatus> findAll();
+    ContractStatus findById(Long id);
+    ContractStatus update(ContractStatus status);
     void removeById(Long id);
-    Status create(Status status);
+    ContractStatus create(ContractStatus status);
 }
