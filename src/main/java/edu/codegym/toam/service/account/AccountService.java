@@ -30,7 +30,7 @@ public class AccountService implements IAccountService {
 
     @Override
     public Account findByUsername(String username) {
-        return accountRepository.findAccountByUsername(username);
+        return accountRepository.findAccountByUsername(username).get();
     }
 
     @Override
@@ -52,13 +52,13 @@ public class AccountService implements IAccountService {
     public Iterable<Account> findAllHost() {
         Role host =new Role();
         host.setId((long) 2);
-        return accountRepository.findAccountByRole(host);
+        return accountRepository.findAccountByRoles(host);
     }
 
     @Override
     public Iterable<Account> findAllRenter() {
         Role renter =new Role();
         renter.setId((long) 3);
-        return accountRepository.findAccountByRole(renter);
+        return accountRepository.findAccountByRoles(renter);
     }
 }

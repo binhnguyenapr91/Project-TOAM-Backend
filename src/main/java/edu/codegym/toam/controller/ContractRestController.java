@@ -16,15 +16,11 @@ public class ContractRestController {
     IContractService contractService;
 
     @GetMapping("")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-
     public ResponseEntity<Iterable<Contracts>> getContracts() {
         return ResponseEntity.ok(this.contractService.findAll());
     }
 
     @GetMapping("/{id}")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-
     public ResponseEntity<Contracts> getContractById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(this.contractService.findById(id));
@@ -34,8 +30,6 @@ public class ContractRestController {
     }
 
     @PostMapping()
-//    @PostAuthorize("hasRole('ROLE_ADMIN')")
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
 
     public ResponseEntity<Contracts> createContract(@RequestBody Contracts contracts) {
         try {
@@ -46,10 +40,7 @@ public class ContractRestController {
     }
 
     @PutMapping()
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-
     public ResponseEntity<Contracts> updateContract(@RequestBody Contracts properties) {
-
         try {
             return ResponseEntity.ok(this.contractService.update(properties));
         } catch (Exception e) {
