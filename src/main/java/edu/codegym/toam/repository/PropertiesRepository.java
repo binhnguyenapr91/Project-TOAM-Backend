@@ -26,5 +26,6 @@ public interface PropertiesRepository extends JpaRepository<Properties, Long>, J
     )
     Iterable<Properties> filterProperties(String keyword);
 
-    Iterable<Properties> findPropertiesByPropertiesTypes_Name(String name);
+    @Query(value = "select p from Properties p where " + "p.propertiesTypes.name like CONCAT('%',:key,'%') ")
+    Iterable<Properties> findByPropertiesTypes(String key);
 }

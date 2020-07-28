@@ -59,6 +59,6 @@ public class PropertiesService implements IPropertiesService {
 
     @Override
     public Iterable<Properties> findAllByPropertiesTypes(String name) {
-        return propertiesRepository.findPropertiesByPropertiesTypes_Name(name);
+        return propertiesRepository.findByPropertiesTypes(name);
     }
 }
