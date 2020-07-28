@@ -1,5 +1,4 @@
 package edu.codegym.toam.controller;
-import com.sipios.springsearch.anotation.SearchSpec;
 
 import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.service.contract.IContractService;
@@ -70,11 +69,17 @@ public class PropertiesRestController {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
     }
 
-//    Tìm properties theo quận,thành phố, tên properties, địa chỉ
+    //    Tìm properties theo quận or thành phố or tên properties or địa chỉ
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
         return ResponseEntity.ok(this.propertiesService.filterProperties(key));
     }
+
+    //    Tìm properties theo (quận or thành phố or tên properties or địa chỉ) và
+//    @GetMapping("/filter/{key}")
+//    public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
+//        return ResponseEntity.ok(this.propertiesService.filterProperties(key));
+//    }
 
     //    Phân loại nhà
     @GetMapping("/properties/propertyType/{propertyTypeId}")
