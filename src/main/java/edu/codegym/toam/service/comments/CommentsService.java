@@ -1,7 +1,9 @@
 package edu.codegym.toam.service.comments;
 
 import edu.codegym.toam.model.Comments;
+import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.repository.CommentRepository;
+import edu.codegym.toam.repository.PropertiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 public class CommentsService implements ICommentsService {
     @Autowired
     CommentRepository commentRepository;
+    @Autowired
+    PropertiesRepository propertiesRepository;
 
     @Override
     public Iterable<Comments> findAll() {
@@ -40,4 +44,10 @@ public class CommentsService implements ICommentsService {
         return commentRepository.findCommentsByProperties_Id(propertyId);
     }
 
+    @Override
+    public Comments createCommentByPropertyId(Long propertyId, Comments comments) {
+        Properties property=propertiesRepository.findById(propertyId).get();
+        comments.setProperties(property);
+        return commentRepository.save(comments);
+    }
 }

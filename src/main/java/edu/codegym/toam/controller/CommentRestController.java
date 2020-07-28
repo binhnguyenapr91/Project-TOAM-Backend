@@ -64,7 +64,7 @@ public class CommentRestController {
 
 // Tạo comments của 1 property
     @PostMapping("create/property/{propertyId}")
-    public ResponseEntity<Iterable<Comments>> createPropertyComments(@PathVariable Long propertyId) {
-        return ResponseEntity.ok(this.commentsService.findAllCommentByPropertyId(propertyId));
+    public ResponseEntity<Comments> createPropertyComments(@PathVariable Long propertyId,@RequestBody Comments comments) {
+        return ResponseEntity.ok(this.commentsService.createCommentByPropertyId(propertyId,comments));
     }
 }

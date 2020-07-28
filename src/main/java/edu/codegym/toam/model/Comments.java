@@ -1,9 +1,11 @@
 package edu.codegym.toam.model;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @Data
@@ -12,6 +14,8 @@ public class Comments {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @CreationTimestamp
+    private Date createDate;
     @NotNull
     private String comment;
     @NotNull
@@ -61,5 +65,13 @@ public class Comments {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }
