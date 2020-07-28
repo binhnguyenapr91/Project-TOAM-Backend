@@ -77,4 +77,26 @@ public class AccountRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+//    Chuyển đổi trạng thái account (từ block sang không block và ngược lại)
+    @PostMapping("/edit/{accountId}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_RENTER','ROLE_HOST')")
+    public ResponseEntity<Account> changeAccountStatus(@PathVariable Long accountId) {
+        try {
+           this.accountService.changeAccountStatus(accountId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<String> removePropertyById(@PathVariable Long id) {
+//        try {
+//            this.propertiesService.removeById(id);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 }

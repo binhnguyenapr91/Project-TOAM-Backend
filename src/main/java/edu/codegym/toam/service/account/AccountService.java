@@ -60,4 +60,11 @@ public class AccountService implements IAccountService {
         renter.setId((long) 3);
         return accountRepository.findAccountByRoles(renter);
     }
+
+    @Override
+    public void changeAccountStatus(Long accountId) {
+        Account account = accountRepository.findById(accountId).get();
+        account.changeStatus();
+        accountRepository.save(account);
+    }
 }

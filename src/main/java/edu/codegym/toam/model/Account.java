@@ -28,7 +28,7 @@ public class Account {
     @Column(unique = true, nullable = false)
     private String email;
 
-//    @Size(min = 3, max = 50)
+    //    @Size(min = 3, max = 50)
 //    @Column(unique = true, nullable = false)
     private String phone;
 
@@ -115,5 +115,8 @@ public class Account {
         this.status = status;
     }
 
+    public void changeStatus() {
+        this.status = !this.status;
+    }
 
 }
