@@ -4,6 +4,8 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -18,7 +20,7 @@ public class Comments {
     private Date createDate;
     @NotNull
     private String comment;
-    @NotNull
+    @Min(0)@Max(5)
     private int rating;
     @NotNull
     @ManyToOne
