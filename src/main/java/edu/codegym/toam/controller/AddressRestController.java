@@ -48,7 +48,7 @@ public class AddressRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeBlogById(@PathVariable Long id) {
+    public ResponseEntity<String> removeAddressById(@PathVariable Long id) {
         try {
             this.addressService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
