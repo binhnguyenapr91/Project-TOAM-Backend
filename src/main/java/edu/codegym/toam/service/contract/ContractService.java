@@ -3,6 +3,7 @@ package edu.codegym.toam.service.contract;
 import edu.codegym.toam.model.ContractStatus;
 import edu.codegym.toam.model.Contracts;
 import edu.codegym.toam.repository.ContractRepository;
+import edu.codegym.toam.repository.ContractStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 public class ContractService implements IContractService {
     @Autowired
     ContractRepository contractRepository;
+    @Autowired
+    ContractStatusRepository contractStatusRepository;
 
     @Override
     public Iterable<Contracts> findAll() {
@@ -33,9 +36,8 @@ public class ContractService implements IContractService {
 
     @Override
     public Contracts create(Contracts contracts) {
-        ContractStatus contractStatus= new ContractStatus();
-        contractStatus.setId((long) 1);
-       contracts.setContractStatus(contractStatus);
+        ContractStatus contractStatus = contractStatusRepository.findById((long) 1).get();
+        contracts.setContractStatus(contractStatus);
         return contractRepository.save(contracts);
     }
 
