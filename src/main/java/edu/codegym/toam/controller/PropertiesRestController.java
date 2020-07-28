@@ -1,4 +1,5 @@
 package edu.codegym.toam.controller;
+import com.sipios.springsearch.anotation.SearchSpec;
 
 import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.service.contract.IContractService;
