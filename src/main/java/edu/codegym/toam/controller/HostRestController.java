@@ -80,7 +80,7 @@ public class HostRestController {
         }
     }
 
-////    Sửa thông tin nhà
+//    Sửa thông tin nhà
 //    @PutMapping("properties/{id}/update")
 //    public ResponseEntity<Properties> updateProperties(@RequestBody Properties properties) {
 //        Account currentHost = getCurrentAccount();

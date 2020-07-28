@@ -9,7 +9,7 @@ public class EncryptedPasswordUtil {
     }
 
     public static void main(String[] args) {
-        String password = "aaaaaa";
+        String password = "123456";
         String encrytedPassword = encryptPassword(password);
 
         System.out.println("Encryted Password: " + encrytedPassword);
