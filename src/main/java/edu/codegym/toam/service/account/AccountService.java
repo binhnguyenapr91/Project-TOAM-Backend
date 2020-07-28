@@ -1,8 +1,11 @@
 package edu.codegym.toam.service.account;
 
 import edu.codegym.toam.model.Account;
+import edu.codegym.toam.model.Contracts;
 import edu.codegym.toam.model.Role;
 import edu.codegym.toam.repository.AccountRepository;
+import edu.codegym.toam.repository.ContractRepository;
+import edu.codegym.toam.repository.PropertiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,11 @@ import org.springframework.stereotype.Service;
 public class AccountService implements IAccountService {
     @Autowired
     AccountRepository accountRepository;
+    @Autowired
+    PropertiesRepository propertiesRepository;
+    @Autowired
+    ContractRepository contractRepository;
+
     @Autowired
     PasswordEncoder encoder;
 
@@ -66,5 +74,12 @@ public class AccountService implements IAccountService {
         Account account = accountRepository.findById(accountId).get();
         account.changeStatus();
         accountRepository.save(account);
+    }
+
+    @Override
+    public boolean checkAccountConstraint(Long id) {
+        Iterable<Contracts> renterContract = contractRepository.findContractsByProperties_Host_Id(id);
+        Iterable<Contracts> hostContract = contractRepository.findContractsByRenter_Id(id);
+        return renterContract.iterator().hasNext() || hostContract.iterator().hasNext();
     }
 }

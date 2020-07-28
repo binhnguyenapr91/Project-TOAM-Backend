@@ -20,4 +20,6 @@ public interface IAccountService {
     Account create(Account account);
 
     void changeAccountStatus(Long accountId);
+
+    boolean checkAccountConstraint(Long id);
 }

@@ -5,6 +5,7 @@ import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.model.PropertyStatus;
 import edu.codegym.toam.repository.AddressRepository;
 import edu.codegym.toam.repository.PropertiesRepository;
+import edu.codegym.toam.repository.PropertiesStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,8 @@ public class PropertiesService implements IPropertiesService {
     PropertiesRepository propertiesRepository;
     @Autowired
     AddressRepository addressRepository;
+    @Autowired
+    PropertiesStatusRepository propertiesStatusRepository;
 
     @Override
     public Iterable<Properties> findAll() {
@@ -40,8 +43,7 @@ public class PropertiesService implements IPropertiesService {
     public Properties create(Properties properties) {
         Addresses addresses = properties.getAddresses();
         addressRepository.save(addresses);
-        PropertyStatus propertyStatus= new PropertyStatus();
-        propertyStatus.setId((long) 1);
+        PropertyStatus propertyStatus=propertiesStatusRepository.findById((long) 1).get();
         properties.setPropertyStatus(propertyStatus);
         return propertiesRepository.save(properties);
     }
