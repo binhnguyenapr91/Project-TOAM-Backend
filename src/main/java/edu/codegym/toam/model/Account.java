@@ -12,40 +12,43 @@ import java.util.Set;
 @Data
 public class Account {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    @Size(min = 3,max = 50)
-    @Column(unique = true,nullable = false)
+    @Size(min = 3, max = 50)
+    @Column(unique = true, nullable = false)
     private String username;
 
-    @Size(min = 5,max = 100)
     @Column(nullable = false)
     private String password;
 
     @Email
-    @Column(unique = true,nullable = false)
+    @Size(min = 3, max = 100)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(unique = true,nullable = true)
+//    @Size(min = 3, max = 50)
+//    @Column(unique = true, nullable = false)
     private String phone;
 
     private boolean status;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_roles",
+    @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public Account(){
+    public Account() {
 
     }
+
     public Account(String username, String email, String encode) {
         this.username = username;
         this.email = email;
         this.password = encode;
+        this.status = true;
     }
 
     public String getPassword() {

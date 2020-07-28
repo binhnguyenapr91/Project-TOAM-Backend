@@ -11,6 +11,9 @@ import java.util.Date;
 
 @Entity
 @Data
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"rating","account_id"})
+})
 public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +27,9 @@ public class Comments {
     private int rating;
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "account_id")
     private Account account;
+
     @NotNull
     @ManyToOne
     private Properties properties;

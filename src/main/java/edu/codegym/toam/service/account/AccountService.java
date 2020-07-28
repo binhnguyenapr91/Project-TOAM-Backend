@@ -38,24 +38,25 @@ public class AccountService implements IAccountService {
 
     @Override
     public void removeById(Long id) {
-            accountRepository.deleteById(id);
-        }
+        accountRepository.deleteById(id);
+    }
 
     @Override
     public Account create(Account account) {
+        account.setStatus(true);
         return accountRepository.save(account);
     }
 
     @Override
     public Iterable<Account> findAllHost() {
-        Role host =new Role();
+        Role host = new Role();
         host.setId((long) 2);
         return accountRepository.findAccountByRoles(host);
     }
 
     @Override
     public Iterable<Account> findAllRenter() {
-        Role renter =new Role();
+        Role renter = new Role();
         renter.setId((long) 3);
         return accountRepository.findAccountByRoles(renter);
     }
