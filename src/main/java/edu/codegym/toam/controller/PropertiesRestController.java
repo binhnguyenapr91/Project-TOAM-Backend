@@ -1,7 +1,7 @@
 package edu.codegym.toam.controller;
 
 import edu.codegym.toam.model.Properties;
-import edu.codegym.toam.repository.PropertiesRepository;
+import edu.codegym.toam.service.contract.IContractService;
 import edu.codegym.toam.service.properties.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class PropertiesRestController {
     IPropertiesService propertiesService;
 
     @Autowired
-    PropertiesRepository propertiesRepository;
+    IContractService contractService;
 
     @GetMapping
     public ResponseEntity<Iterable<Properties>> getProperties() {
@@ -73,6 +73,12 @@ public class PropertiesRestController {
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
         return ResponseEntity.ok(this.propertiesService.filterProperties(key));
+    }
+
+    //    Phân loại nhà
+    @GetMapping("/properties/propertyType/{propertyTypeId}")
+    public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable Long propertyTypeId) {
+        return ResponseEntity.ok(this.propertiesService.findPropertiesByType(propertyTypeId));
     }
 
 }
