@@ -82,8 +82,6 @@ public class AccountService implements IAccountService {
     public boolean checkAccountConstraint(Long id) {
         Iterable<Contracts> renterContract = contractRepository.findContractsByProperties_Host_Id(id);
         Iterable<Contracts> hostContract = contractRepository.findContractsByRenter_Id(id);
-        System.out.println(renterContract.iterator().hasNext());
-        System.out.println(hostContract.iterator().hasNext());
         return renterContract.iterator().hasNext() || hostContract.iterator().hasNext();
     }
 }

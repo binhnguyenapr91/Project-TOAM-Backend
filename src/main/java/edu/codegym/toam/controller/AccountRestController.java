@@ -82,14 +82,14 @@ public class AccountRestController {
     }
 
 
-//    Xóa account điều kiện ràng buộc là ko có bất kỳ hóa đơn nào
+    //    Xóa account điều kiện ràng buộc là ko có bất kỳ hóa đơn nào
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/{id}")
+    @GetMapping("delete/{id}")
     public ResponseEntity<String> removePropertyById(@PathVariable Long id) {
         try {
+            if (this.accountService.findById(id) == null) throw new Exception();
             if (!this.accountService.checkAccountConstraint(id)) {
-//                this.accountService.removeById(id);
-                System.out.println(true);
+                this.accountService.removeById(id);
                 return new ResponseEntity<>(HttpStatus.OK);
             } else throw new NotActiveException();
         } catch (NotActiveException nae) {
