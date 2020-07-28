@@ -36,7 +36,9 @@ public class CommentsService implements ICommentsService {
 
     @Override
     public Comments create(Comments contracts) {
+
         return commentRepository.save(contracts);
+
     }
 
     @Override
