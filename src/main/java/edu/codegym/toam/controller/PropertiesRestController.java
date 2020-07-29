@@ -93,9 +93,9 @@ public class PropertiesRestController {
     //tìm kiếm theo tên địa chỉ(tên nhà,tên đường, tên quận,thành phố)và bathroom và bedroom và giá
     @GetMapping("/filter/{address}/{bathroom}/{bedroom}/{priceSelection}")
     public ResponseEntity<Iterable<Properties>> searchPropertiesAdvance(@PathVariable String address,
-    @PathVariable int bathroom, @PathVariable int bedroom, @PathVariable Long priceSelection) {
+    @PathVariable int bathroom, @PathVariable int bedroom, @PathVariable float priceSelection) {
 
-        return ResponseEntity.ok(this.propertiesService.filterPropertiesAdvance(address,bathroom,bedroom));
+        return ResponseEntity.ok(this.propertiesService.filterPropertiesAdvance(address,bathroom,bedroom,priceSelection));
     }
 
     //tìm kiếm theo type nhà

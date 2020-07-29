@@ -32,8 +32,9 @@ public interface PropertiesRepository extends JpaRepository<Properties, Long>, J
 
             + "and p.bathrooms = :bathroom "
             + "and p.bedrooms =:bedroom "
+            + "and (p.price>:minPrice and p.price<=:maxPrice) "
     )
-    Iterable<Properties> filterPropertiesAdvance(String address, int bathroom, int bedroom);
+    Iterable<Properties> filterPropertiesAdvance(String address, int bathroom, int bedroom, Float minPrice, Float maxPrice);
 
 //    @Query(value = "select p from Properties p where "
 //            + " p.bathrooms = :bathroom "
