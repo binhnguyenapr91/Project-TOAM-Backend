@@ -1,23 +1,18 @@
 package edu.codegym.toam.controller;
+
+import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.Comments;
 import edu.codegym.toam.model.Properties;
-import edu.codegym.toam.service.comments.ICommentsService;
-import com.sipios.springsearch.anotation.SearchSpec;
-import edu.codegym.toam.model.Account;
-import edu.codegym.toam.model.Properties;
-import edu.codegym.toam.service.account.AccountService;
 import edu.codegym.toam.service.account.CustomAccountDetail;
 import edu.codegym.toam.service.account.IAccountService;
+import edu.codegym.toam.service.comments.ICommentsService;
 import edu.codegym.toam.service.contract.IContractService;
 import edu.codegym.toam.service.properties.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -90,17 +85,25 @@ public class PropertiesRestController {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
     }
 
+    //tìm kiếm theo tên địa chỉ(tên nhà,tên đường, tên quận,thành phố)
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
         return ResponseEntity.ok(this.propertiesService.filterProperties(key));
     }
 
+    //tìm kiếm theo tên địa chỉ(tên nhà,tên đường, tên quận,thành phố)và bathroom và bedroom và giá
+    @GetMapping("/filter/{address}/{bathroom}/{bedroom}/{priceSelection}")
+    public ResponseEntity<Iterable<Properties>> searchPropertiesAdvance(@PathVariable String address,
+    @PathVariable int bathroom, @PathVariable int bedroom, @PathVariable float priceSelection) {
 
+        return ResponseEntity.ok(this.propertiesService.filterPropertiesAdvance(address,bathroom,bedroom,priceSelection));
+    }
+
+    //tìm kiếm theo type nhà
     @GetMapping("/type/{name}")
     public ResponseEntity<Iterable<Properties>> searchPropertyType(@PathVariable String name) {
         return ResponseEntity.ok(this.propertiesService.findAllByPropertiesTypes(name));
     }
-
 
     //    Phân loại nhà
     @GetMapping("/properties/propertyType/{propertyTypeId}")

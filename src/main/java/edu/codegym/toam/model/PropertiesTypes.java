@@ -15,6 +15,13 @@ public class PropertiesTypes {
     private Long id;
     private String name;
 
+    public PropertiesTypes() {
+    }
+
+    public PropertiesTypes(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

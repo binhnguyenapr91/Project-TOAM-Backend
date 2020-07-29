@@ -16,4 +16,8 @@ public interface IContractService {
     Iterable<Contracts> findAllContractsByHostId(Long id);
 
     Iterable<Contracts> findAllContractsByRenterId(Long id);
+
+    Iterable<Contracts> findAllContractsByRenterIdAndPropertyId(Long renterId,Long propertyId);
+
+
 }

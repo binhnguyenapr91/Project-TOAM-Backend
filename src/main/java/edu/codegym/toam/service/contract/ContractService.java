@@ -50,4 +50,9 @@ public class ContractService implements IContractService {
     public Iterable<Contracts> findAllContractsByRenterId(Long id) {
         return contractRepository.findContractsByRenter_Id(id);
     }
+
+    @Override
+    public Iterable<Contracts> findAllContractsByRenterIdAndPropertyId(Long renterId,Long propertyId) {
+        return contractRepository.findContractsByRenter_IdAndProperties_Id(renterId, propertyId);
+    }
 }
