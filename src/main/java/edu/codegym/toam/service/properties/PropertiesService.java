@@ -73,4 +73,8 @@ public class PropertiesService implements IPropertiesService {
         return propertiesRepository.findPropertiesByPropertiesTypes_Id(propertyTypeId);
     }
 
+    @Override
+    public Iterable<Properties> filterPropertiesAdvance(String address, int bathroom, int bedroom) {
+        return null;
+    }
 }

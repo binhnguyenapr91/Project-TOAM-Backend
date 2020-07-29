@@ -24,4 +24,5 @@ public interface IPropertiesService {
 
     Iterable<Properties> findPropertiesByType(Long propertyTypeId);
 
+    Iterable<Properties> filterPropertiesAdvance(String address, int bathroom, int bedroom);
 }

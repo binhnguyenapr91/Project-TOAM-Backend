@@ -89,7 +89,18 @@ public class PropertiesRestController {
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
         return ResponseEntity.ok(this.propertiesService.filterProperties(key));
     }
-//tìm kiếm theo type nhà
+
+    //tìm kiếm theo tên địa chỉ(tên nhà,tên đường, tên quận,thành phố)
+    @GetMapping("/filter/{address}/{bathroom}/{bedroom}")
+    public ResponseEntity<Iterable<Properties>> searchPropertiesAdvance(@PathVariable String address,
+    @PathVariable int bathroom, @PathVariable int bedroom) {
+        System.out.println(address);
+        System.out.println(bathroom);
+        System.out.println(bedroom);
+        return ResponseEntity.ok(this.propertiesService.filterPropertiesAdvance(address,bathroom,bedroom));
+    }
+
+    //tìm kiếm theo type nhà
     @GetMapping("/type/{name}")
     public ResponseEntity<Iterable<Properties>> searchPropertyType(@PathVariable String name) {
         return ResponseEntity.ok(this.propertiesService.findAllByPropertiesTypes(name));
