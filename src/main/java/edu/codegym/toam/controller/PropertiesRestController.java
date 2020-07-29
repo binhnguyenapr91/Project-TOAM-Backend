@@ -1,4 +1,5 @@
 package edu.codegym.toam.controller;
+
 import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.Comments;
 import edu.codegym.toam.model.Properties;
@@ -83,6 +84,7 @@ public class PropertiesRestController {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
     }
 
+    //tìm kiếm theo tên địa chỉ(tên nhà,tên đường, tên quận,thành phố)
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
         return ResponseEntity.ok(this.propertiesService.filterProperties(key));
