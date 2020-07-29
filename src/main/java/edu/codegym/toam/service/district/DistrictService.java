@@ -14,4 +14,9 @@ public class DistrictService implements IDistrictService {
     public Iterable<Districts> findAllDistrict() {
         return districtRepository.findAll();
     }
+
+    @Override
+    public Iterable<Districts> getAllDistrictByCity(Long cityId) {
+        return districtRepository.getAllByCities_Id(cityId);
+    }
 }

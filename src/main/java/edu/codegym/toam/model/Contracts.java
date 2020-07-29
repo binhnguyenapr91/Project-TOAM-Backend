@@ -23,7 +23,10 @@ public class Contracts {
     private Date createTime;
     private Date beginTime;
     private Date endTime;
-    private boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "contractStatusId")
+    private ContractStatus contractStatus;
 
     @ManyToOne
     @JoinColumn(name = "renterId")
@@ -65,12 +68,12 @@ public class Contracts {
         this.endTime = endTime;
     }
 
-    public boolean isStatus() {
-        return status;
+    public ContractStatus getContractStatus() {
+        return contractStatus;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setContractStatus(ContractStatus contractStatus) {
+        this.contractStatus = contractStatus;
     }
 
     public Account getRenter() {

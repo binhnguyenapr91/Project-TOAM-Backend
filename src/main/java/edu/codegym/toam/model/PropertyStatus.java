@@ -15,6 +15,9 @@ public class PropertyStatus {
     private Long id;
     private String name;
 
+    public PropertyStatus() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,9 +1,8 @@
 package edu.codegym.toam.controller;
-
-
+import edu.codegym.toam.model.Comments;
+import edu.codegym.toam.model.Properties;
+import edu.codegym.toam.service.comments.ICommentsService;
 import com.sipios.springsearch.anotation.SearchSpec;
-
-
 import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.service.account.AccountService;
@@ -32,7 +31,10 @@ public class PropertiesRestController {
     IContractService contractService;
 
     @Autowired
+    ICommentsService commentsService;
+
     IAccountService accountService;
+
 
     @GetMapping
     public ResponseEntity<Iterable<Properties>> getProperties() {
@@ -50,8 +52,6 @@ public class PropertiesRestController {
 
     @PostMapping("")
     public ResponseEntity<Properties> createProperties(@RequestBody Properties properties) {
-//       Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//       properties.setHost(account);
 
         CustomAccountDetail user = (CustomAccountDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(user);
@@ -60,6 +60,7 @@ public class PropertiesRestController {
         propertiesService.create(properties);
         Properties properties1 = this.propertiesService.create(properties);
         return new ResponseEntity<>(properties1, HttpStatus.OK);
+
     }
 
     @PutMapping()
@@ -88,13 +89,12 @@ public class PropertiesRestController {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
     }
 
-    //    Tìm properties theo quận,thành phố, tên properties, địa chỉ
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
         return ResponseEntity.ok(this.propertiesService.filterProperties(key));
     }
 
-    // tim kiem phan loai nha
+
     @GetMapping("/type/{name}")
     public ResponseEntity<Iterable<Properties>> searchPropertyType(@PathVariable String name) {
         return ResponseEntity.ok(this.propertiesService.findAllByPropertiesTypes(name));
@@ -105,6 +105,12 @@ public class PropertiesRestController {
     @GetMapping("/properties/propertyType/{propertyTypeId}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable Long propertyTypeId) {
         return ResponseEntity.ok(this.propertiesService.findPropertiesByType(propertyTypeId));
+    }
+
+    //    Lấy tất cả comments của 1 property
+    @GetMapping("/{propertyId}/comments")
+    public ResponseEntity<Iterable<Comments>> getPropertyComments(@PathVariable Long propertyId) {
+        return ResponseEntity.ok(this.commentsService.findAllCommentByPropertyId(propertyId));
     }
 
 }
