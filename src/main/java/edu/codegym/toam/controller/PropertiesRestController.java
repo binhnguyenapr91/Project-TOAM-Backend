@@ -1,14 +1,23 @@
 package edu.codegym.toam.controller;
-
 import edu.codegym.toam.model.Comments;
 import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.service.comments.ICommentsService;
+import com.sipios.springsearch.anotation.SearchSpec;
+import edu.codegym.toam.model.Account;
+import edu.codegym.toam.model.Properties;
+import edu.codegym.toam.service.account.AccountService;
+import edu.codegym.toam.service.account.CustomAccountDetail;
+import edu.codegym.toam.service.account.IAccountService;
 import edu.codegym.toam.service.contract.IContractService;
 import edu.codegym.toam.service.properties.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -23,6 +32,9 @@ public class PropertiesRestController {
 
     @Autowired
     ICommentsService commentsService;
+
+    IAccountService accountService;
+
 
     @GetMapping
     public ResponseEntity<Iterable<Properties>> getProperties() {
@@ -40,11 +52,15 @@ public class PropertiesRestController {
 
     @PostMapping("")
     public ResponseEntity<Properties> createProperties(@RequestBody Properties properties) {
-        try {
-            return ResponseEntity.ok(this.propertiesService.create(properties));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        }
+
+        CustomAccountDetail user = (CustomAccountDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(user);
+        Account account = accountService.findById(user.getId());
+        properties.setHost(account);
+        propertiesService.create(properties);
+        Properties properties1 = this.propertiesService.create(properties);
+        return new ResponseEntity<>(properties1, HttpStatus.OK);
+
     }
 
     @PutMapping()
@@ -73,17 +89,17 @@ public class PropertiesRestController {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
     }
 
-    //    Tìm properties theo quận or thành phố or tên properties or địa chỉ
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
         return ResponseEntity.ok(this.propertiesService.filterProperties(key));
     }
 
-    //    Tìm properties theo (quận or thành phố or tên properties or địa chỉ) và
-//    @GetMapping("/filter/{key}")
-//    public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
-//        return ResponseEntity.ok(this.propertiesService.filterProperties(key));
-//    }
+
+    @GetMapping("/type/{name}")
+    public ResponseEntity<Iterable<Properties>> searchPropertyType(@PathVariable String name) {
+        return ResponseEntity.ok(this.propertiesService.findAllByPropertiesTypes(name));
+    }
+
 
     //    Phân loại nhà
     @GetMapping("/properties/propertyType/{propertyTypeId}")
