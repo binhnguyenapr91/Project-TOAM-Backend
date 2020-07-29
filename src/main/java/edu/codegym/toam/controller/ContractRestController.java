@@ -68,4 +68,9 @@ public class ContractRestController {
     public ResponseEntity<Iterable<Contracts>> getContractRenter(@PathVariable Long renterId) {
         return ResponseEntity.ok(this.contractService.findAllContractsByRenterId(renterId));
     }
+
+    @GetMapping("{contractId}/value")
+    public ResponseEntity<Float> getContractValue(@PathVariable Long contractId) {
+        return ResponseEntity.ok(this.contractService.getContractValueById(contractId));
+    }
 }
