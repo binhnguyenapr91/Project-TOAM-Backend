@@ -90,13 +90,11 @@ public class PropertiesRestController {
         return ResponseEntity.ok(this.propertiesService.filterProperties(key));
     }
 
-    //tìm kiếm theo tên địa chỉ(tên nhà,tên đường, tên quận,thành phố)
-    @GetMapping("/filter/{address}/{bathroom}/{bedroom}")
+    //tìm kiếm theo tên địa chỉ(tên nhà,tên đường, tên quận,thành phố)và bathroom và bedroom và giá
+    @GetMapping("/filter/{address}/{bathroom}/{bedroom}/{priceSelection}")
     public ResponseEntity<Iterable<Properties>> searchPropertiesAdvance(@PathVariable String address,
-    @PathVariable int bathroom, @PathVariable int bedroom) {
-        System.out.println(address);
-        System.out.println(bathroom);
-        System.out.println(bedroom);
+    @PathVariable int bathroom, @PathVariable int bedroom, @PathVariable Long priceSelection) {
+
         return ResponseEntity.ok(this.propertiesService.filterPropertiesAdvance(address,bathroom,bedroom));
     }
 

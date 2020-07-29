@@ -75,6 +75,9 @@ public class PropertiesService implements IPropertiesService {
 
     @Override
     public Iterable<Properties> filterPropertiesAdvance(String address, int bathroom, int bedroom) {
-        return null;
+        System.out.println(bathroom);
+        System.out.println(bedroom);
+        return propertiesRepository.filterPropertiesAdvance(address,bathroom,bedroom);
+//        return propertiesRepository.filterPropertiesAdvance(bathroom,bedroom);
     }
 }
