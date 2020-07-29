@@ -28,6 +28,7 @@ public class PropertiesRestController {
     @Autowired
     ICommentsService commentsService;
 
+    @Autowired
     IAccountService accountService;
 
 
