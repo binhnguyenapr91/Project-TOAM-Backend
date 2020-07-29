@@ -97,10 +97,4 @@ public class AccountRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-    @GetMapping("ROLE")
-    public ResponseEntity<Iterable<Account>> getAllByRoleName(@PathVariable String name) {
-        Iterable<Account> accounts = this.accountService.getAllByRoleName(name);
-        return new ResponseEntity<>(accounts, HttpStatus.OK);
-    }
 }

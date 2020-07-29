@@ -2,7 +2,6 @@ package edu.codegym.toam.controller;
 
 import edu.codegym.toam.model.Role;
 import edu.codegym.toam.service.role.IRoleService;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

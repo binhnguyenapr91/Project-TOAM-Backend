@@ -64,7 +64,9 @@ public class PropertiesRestController {
 
     @PutMapping()
     public ResponseEntity<Properties> updateProperties(@RequestBody Properties properties) {
-
+        CustomAccountDetail user = (CustomAccountDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Account account = accountService.findById(user.getId());
+        properties.setHost(account);
         try {
             return ResponseEntity.ok(this.propertiesService.update(properties));
         } catch (Exception e) {

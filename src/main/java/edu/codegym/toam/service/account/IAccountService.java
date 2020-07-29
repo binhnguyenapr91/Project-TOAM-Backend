@@ -24,6 +24,5 @@ public interface IAccountService {
 
     boolean checkAccountConstraint(Long id);
 
-    Iterable<Account> getAllByRoleName(String name);
 
 }
