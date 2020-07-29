@@ -70,7 +70,6 @@ public class CommentRestController {
     // Tạo comments của 1 property (chỉ cho phép những account có trong hợp đồng vs nhà này dc phép bình luận)
     @PostMapping("create/property")
     public ResponseEntity<Comments> createPropertyComments(@RequestBody Comments comments) {
-
         try {
             Long renterId = comments.getAccount().getId();
             Long propertyId = comments.getProperties().getId();
