@@ -18,7 +18,6 @@ public class AccountRestController {
     @GetMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Iterable<Account>> getAccounts() {
-
         return ResponseEntity.ok(this.accountService.findAll());
     }
 
@@ -27,6 +26,10 @@ public class AccountRestController {
     public ResponseEntity<Iterable<Account>> getHost() {
         return ResponseEntity.ok(this.accountService.findAllHost());
     }
+
+
+    //Lấy danh sách tất cả những thằng thuê nhàstreet
+
 
 
     //Lấy danh sách tất cả những thằng thuê nhàstreet
@@ -47,7 +50,6 @@ public class AccountRestController {
     }
 
     @PostMapping()
-    @PreAuthorize("hasAnyRole('ROLE_RENTER','ROLE_ADMIN','ROLE_HOST')")
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
         try {
             return ResponseEntity.ok(this.accountService.create(account));
