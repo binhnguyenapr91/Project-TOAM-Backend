@@ -58,6 +58,7 @@ public class AddressRestController {
         }
     }
 
+//    Chỉ lấy những thằng address mới đc tạo
     @GetMapping("/newAddress")
     public ResponseEntity<Iterable<Long>> getNewAddress() {
         try {
