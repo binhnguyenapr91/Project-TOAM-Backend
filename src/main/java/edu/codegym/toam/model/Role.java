@@ -3,15 +3,23 @@ package edu.codegym.toam.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
+@Table(name="roles")
 public class Role {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private ERole name;
+
+    public Role(ERole roleName) {
+        this.name = roleName;
+    }
+
+    public Role() {
+    }
 
     public Long getId() {
         return id;
@@ -21,13 +29,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
+    public ERole getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(ERole name) {
         this.name = name;
     }
-
-
 }

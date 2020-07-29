@@ -1,35 +1,40 @@
 package edu.codegym.toam.model;
 
-import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
+//Không cho phép 1 renter tạo nhiều contracts với cùng 1 thời gian bắt đầu và cùng 1 địa chỉ 1renterId
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"beginTime","renterId", "propertiesId"})
+})
 @Entity
-@Data
+@ScriptAssert(lang = "javascript", script = "_this.createTime.before(_this.beginTime)")
+@ScriptAssert(lang = "javascript", script = "_this.beginTime.before(_this.endTime)")
+
 public class Contracts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @CreationTimestamp
     private Date createTime;
-
     private Date beginTime;
     private Date endTime;
-    private boolean status;
 
-    @OneToOne
-    private Properties properties;
+    @ManyToOne
+    @JoinColumn(name = "contractStatusId")
+    private ContractStatus contractStatus;
 
-    @OneToOne
-    @JoinColumn(name = "hostId")
-    private Account host;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "renterId")
     private Account renter;
+
+    @ManyToOne
+    @JoinColumn(name = "propertiesId")
+    private Properties properties;
 
     public Long getId() {
         return id;
@@ -63,28 +68,12 @@ public class Contracts {
         this.endTime = endTime;
     }
 
-    public boolean isStatus() {
-        return status;
+    public ContractStatus getContractStatus() {
+        return contractStatus;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Properties getProperties() {
-        return properties;
-    }
-
-    public void setProperties(Properties properties) {
-        this.properties = properties;
-    }
-
-    public Account getHost() {
-        return host;
-    }
-
-    public void setHost(Account host) {
-        this.host = host;
+    public void setContractStatus(ContractStatus contractStatus) {
+        this.contractStatus = contractStatus;
     }
 
     public Account getRenter() {
@@ -93,5 +82,13 @@ public class Contracts {
 
     public void setRenter(Account renter) {
         this.renter = renter;
+    }
+
+    public Properties getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Properties properties) {
+        this.properties = properties;
     }
 }
