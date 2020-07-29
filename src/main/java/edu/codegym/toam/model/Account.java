@@ -1,10 +1,12 @@
 package edu.codegym.toam.model;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +17,9 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @CreationTimestamp
+    private Date createdDate;
 
     @Size(min = 3, max = 50)
     @Column(unique = true, nullable = false)
@@ -28,7 +33,7 @@ public class Account {
     @Column(unique = true, nullable = false)
     private String email;
 
-//    @Size(min = 3, max = 50)
+    //    @Size(min = 3, max = 50)
 //    @Column(unique = true, nullable = false)
     private String phone;
 
