@@ -1,6 +1,7 @@
 package edu.codegym.toam.service.account;
 
 import edu.codegym.toam.model.Account;
+import edu.codegym.toam.model.Role;
 
 public interface IAccountService {
     Iterable<Account> findAll();
@@ -22,4 +23,7 @@ public interface IAccountService {
     void changeAccountStatus(Long accountId);
 
     boolean checkAccountConstraint(Long id);
+
+    Iterable<Account> getAllByRoleName(String name);
+
 }

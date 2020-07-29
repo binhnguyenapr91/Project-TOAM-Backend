@@ -84,4 +84,10 @@ public class AccountService implements IAccountService {
         Iterable<Contracts> hostContract = contractRepository.findContractsByRenter_Id(id);
         return renterContract.iterator().hasNext() || hostContract.iterator().hasNext();
     }
+
+    @Override
+    public Iterable<Account> getAllByRoleName(String name) {
+        return accountRepository.getAccountByRoleName(name);
+    }
+
 }

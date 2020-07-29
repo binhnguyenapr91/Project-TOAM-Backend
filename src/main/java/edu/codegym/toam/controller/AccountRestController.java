@@ -1,6 +1,7 @@
 package edu.codegym.toam.controller;
 
 import edu.codegym.toam.model.Account;
+import edu.codegym.toam.model.Role;
 import edu.codegym.toam.service.account.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.NotActiveException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/account")
@@ -45,6 +47,7 @@ public class AccountRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
     @PostMapping()
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
@@ -93,5 +96,11 @@ public class AccountRestController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("ROLE")
+    public ResponseEntity<Iterable<Account>> getAllByRoleName(@PathVariable String name) {
+        Iterable<Account> accounts = this.accountService.getAllByRoleName(name);
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 }

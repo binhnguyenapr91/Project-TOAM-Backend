@@ -33,6 +33,7 @@ public class PropertiesRestController {
     @Autowired
     ICommentsService commentsService;
 
+    @Autowired
     IAccountService accountService;
 
 
@@ -52,15 +53,13 @@ public class PropertiesRestController {
 
     @PostMapping("")
     public ResponseEntity<Properties> createProperties(@RequestBody Properties properties) {
-
         CustomAccountDetail user = (CustomAccountDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(user);
         Account account = accountService.findById(user.getId());
+        System.out.println(account);
         properties.setHost(account);
-        propertiesService.create(properties);
-        Properties properties1 = this.propertiesService.create(properties);
+        Properties properties1 =   propertiesService.create(properties);
         return new ResponseEntity<>(properties1, HttpStatus.OK);
-
     }
 
     @PutMapping()

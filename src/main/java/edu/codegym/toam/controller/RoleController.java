@@ -34,4 +34,10 @@ public class RoleController {
         }
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<Iterable<Role>> findAllRole() {
+        Iterable<Role> roles = roleService.findAll();
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
 }
