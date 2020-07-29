@@ -89,7 +89,7 @@ public class PropertiesRestController {
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
         return ResponseEntity.ok(this.propertiesService.filterProperties(key));
     }
-
+//tìm kiếm theo type nhà
     @GetMapping("/type/{name}")
     public ResponseEntity<Iterable<Properties>> searchPropertyType(@PathVariable String name) {
         return ResponseEntity.ok(this.propertiesService.findAllByPropertiesTypes(name));
