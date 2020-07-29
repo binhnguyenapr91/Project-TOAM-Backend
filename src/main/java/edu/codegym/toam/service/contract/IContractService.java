@@ -20,4 +20,6 @@ public interface IContractService {
     Iterable<Contracts> findAllContractsByRenterIdAndPropertyId(Long renterId,Long propertyId);
 
     Float getContractValueById(Long contractId);
+
+    Float getHostValueById(Long hostId);
 }

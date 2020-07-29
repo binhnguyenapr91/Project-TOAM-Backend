@@ -61,4 +61,14 @@ public class ContractService implements IContractService {
         Contracts contracts = contractRepository.findById(contractId).get();
         return contracts.getContractValue();
     }
+
+    @Override
+    public Float getHostValueById(Long hostId) {
+        Iterable<Contracts> allContracts = contractRepository.findContractsByProperties_Host_Id(hostId);
+        Float hostValue = 0f;
+        for (Contracts contracts : allContracts) {
+            hostValue = +contracts.getContractValue();
+        }
+        return hostValue;
+    }
 }
