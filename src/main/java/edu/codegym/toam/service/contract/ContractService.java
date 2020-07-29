@@ -1,13 +1,18 @@
 package edu.codegym.toam.service.contract;
 
+import edu.codegym.toam.exception.ContractException;
 import edu.codegym.toam.model.ContractStatus;
 import edu.codegym.toam.model.Contracts;
 import edu.codegym.toam.repository.ContractRepository;
 import edu.codegym.toam.repository.ContractStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
+@Component
 public class ContractService implements IContractService {
     @Autowired
     ContractRepository contractRepository;
@@ -54,5 +59,14 @@ public class ContractService implements IContractService {
     @Override
     public Iterable<Contracts> findAllContractsByRenterIdAndPropertyId(Long renterId,Long propertyId) {
         return contractRepository.findContractsByRenter_IdAndProperties_Id(renterId, propertyId);
+    }
+
+    @Override
+    public boolean checkCheckinTimeAndCurrentTime (Date checkinTime, Date currentTime) throws ContractException {
+        if(checkinTime.before(currentTime)){
+            throw new ContractException();
+        }else{
+            return true;
+        }
     }
 }

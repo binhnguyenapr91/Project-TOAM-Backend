@@ -12,8 +12,8 @@ import java.util.Date;
         @UniqueConstraint(columnNames = {"beginTime","renterId", "propertiesId"})
 })
 @Entity
-@ScriptAssert(lang = "javascript", script = "_this.createTime.before(_this.beginTime)")
-@ScriptAssert(lang = "javascript", script = "_this.beginTime.before(_this.endTime)")
+//@ScriptAssert(lang = "javascript", script = "_this.createTime.before(_this.beginTime)")
+//@ScriptAssert(lang = "javascript", script = "_this.beginTime.before(_this.endTime)")
 
 public class Contracts {
     @Id

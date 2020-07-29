@@ -1,11 +1,14 @@
 package edu.codegym.toam.controller;
 
+import edu.codegym.toam.exception.ContractException;
 import edu.codegym.toam.model.Contracts;
 import edu.codegym.toam.service.contract.IContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @CrossOrigin("*")
@@ -30,13 +33,13 @@ public class ContractRestController {
     }
 
     @PostMapping()
-
     public ResponseEntity<Contracts> createContract(@RequestBody Contracts contracts) {
-        try {
-            return ResponseEntity.ok(this.contractService.create(contracts));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        }
+        Date checkinTime = contracts.getBeginTime();
+        Date currentTime = new Date();
+        Boolean isValid;
+        isValid = contractService.checkCheckinTimeAndCurrentTime(checkinTime,currentTime);
+        System.out.println(currentTime);
+        return ResponseEntity.ok(this.contractService.create(contracts));
     }
 
     @PutMapping()

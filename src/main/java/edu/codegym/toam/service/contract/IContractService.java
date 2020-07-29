@@ -1,6 +1,9 @@
 package edu.codegym.toam.service.contract;
 
+import edu.codegym.toam.exception.ContractException;
 import edu.codegym.toam.model.Contracts;
+
+import java.util.Date;
 
 public interface IContractService {
     Iterable<Contracts> findAll();
@@ -19,5 +22,6 @@ public interface IContractService {
 
     Iterable<Contracts> findAllContractsByRenterIdAndPropertyId(Long renterId,Long propertyId);
 
+    boolean checkCheckinTimeAndCurrentTime (Date checkinTime, Date currentTime) throws ContractException;
 
 }
