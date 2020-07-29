@@ -6,21 +6,22 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"street","districtsId"})
+        @UniqueConstraint(columnNames = {"street", "districts_id"})
 })
-
 @Entity
 @Data
+
 public class Addresses {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 10)
+
+    @Size(min = 10,max = 100)
     private String street;
 
     @ManyToOne
-    @JoinColumn(name = "districtsId")
+    @JoinColumn(name = "districts_id")
     private Districts districts;
 
     public Long getId() {
@@ -31,20 +32,5 @@ public class Addresses {
         this.id = id;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public Districts getDistricts() {
-        return districts;
-    }
-
-    public void setDistricts(Districts districts) {
-        this.districts = districts;
-    }
 
 }

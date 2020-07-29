@@ -38,11 +38,6 @@ public class Properties {
     @JoinColumn(name = "propertyTypeId")
     private PropertiesTypes propertiesTypes;
 
-    @ManyToOne
-    @JoinColumn(name = "statusId")
-    private Status status;
-
-
     @OneToOne
     @JoinColumn(name = "addressId")
     private Addresses addresses;
@@ -123,14 +118,6 @@ public class Properties {
         this.videos = videos;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public PropertiesTypes getPropertiesTypes() {
         return propertiesTypes;
     }
@@ -153,5 +140,13 @@ public class Properties {
 
     public void setHost(Account host) {
         this.host = host;
+    }
+
+    public PropertyStatus getPropertyStatus() {
+        return propertyStatus;
+    }
+
+    public void setPropertyStatus(PropertyStatus propertyStatus) {
+        this.propertyStatus = propertyStatus;
     }
 }

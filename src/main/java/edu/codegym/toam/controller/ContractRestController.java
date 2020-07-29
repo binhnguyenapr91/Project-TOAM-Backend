@@ -30,7 +30,6 @@ public class ContractRestController {
     }
 
     @PostMapping()
-
     public ResponseEntity<Contracts> createContract(@RequestBody Contracts contracts) {
         try {
             return ResponseEntity.ok(this.contractService.create(contracts));

@@ -60,7 +60,7 @@ public class RenterRestController {
         Account currentHost = getCurrentAccount();
         Long id = currentHost.getId();
         contracts.setRenter(currentHost);
-        contracts.setStatus(true);
+
         try {
             System.out.println(contracts.getId());
             return ResponseEntity.ok(this.contractService.create(contracts));
