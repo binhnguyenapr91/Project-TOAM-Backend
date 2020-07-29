@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ContractExceptionController {
     @ExceptionHandler(value = ContractException.class)
-    public ResponseEntity<Object> checkInTimeException(ContractException exception) {
-        return new ResponseEntity<>("Check in time is not valid", HttpStatus.NOT_ACCEPTABLE);
+    public ResponseEntity<Object> checkTimeException(ContractException exception) {
+        return new ResponseEntity<>("Check in or check out time is not valid", HttpStatus.NOT_ACCEPTABLE);
     }
 }

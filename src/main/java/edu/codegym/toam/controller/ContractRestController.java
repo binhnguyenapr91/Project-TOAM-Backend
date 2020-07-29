@@ -35,9 +35,10 @@ public class ContractRestController {
     @PostMapping()
     public ResponseEntity<Contracts> createContract(@RequestBody Contracts contracts) {
         Date checkinTime = contracts.getBeginTime();
+        Date checkoutTime = contracts.getEndTime();
         Date currentTime = new Date();
-        Boolean isValid;
-        isValid = contractService.checkCheckinTimeAndCurrentTime(checkinTime,currentTime);
+        Boolean isTimeValid;
+        isTimeValid = contractService.checkContractTime(currentTime,checkinTime,checkoutTime);
         System.out.println(currentTime);
         return ResponseEntity.ok(this.contractService.create(contracts));
     }

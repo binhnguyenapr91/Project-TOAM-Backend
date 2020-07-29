@@ -62,8 +62,8 @@ public class ContractService implements IContractService {
     }
 
     @Override
-    public boolean checkCheckinTimeAndCurrentTime (Date checkinTime, Date currentTime) throws ContractException {
-        if(checkinTime.before(currentTime)){
+    public boolean checkContractTime (Date currentTime,Date checkinTime,Date checkoutTime) throws ContractException {
+        if(checkinTime.before(currentTime)||checkoutTime.before(checkinTime)){
             throw new ContractException();
         }else{
             return true;
