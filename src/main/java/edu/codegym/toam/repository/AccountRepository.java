@@ -4,9 +4,11 @@ import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = "*")
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
     Optional<Account> findAccountByUsername(String username);
