@@ -69,7 +69,8 @@ public class ContractRestController {
         return ResponseEntity.ok(this.contractService.findAllContractsByRenterId(renterId));
     }
 
-    @GetMapping("{contractId}/value")
+//    Lấy giá trị của 1 hợp đồng
+    @PostMapping("{contractId}/value")
     public ResponseEntity<Float> getContractValue(@PathVariable Long contractId) {
         return ResponseEntity.ok(this.contractService.getContractValueById(contractId));
     }

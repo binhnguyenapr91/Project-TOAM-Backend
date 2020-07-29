@@ -119,4 +119,6 @@ public class HostRestController {
         String username = loggedAccount.getName();
         return this.accountService.findByUsername(username);
     }
+
+
 }
