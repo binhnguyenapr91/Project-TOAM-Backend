@@ -30,7 +30,9 @@ public class Properties {
     private String images;
     private String videos;
 
-    private String notAvailableTime;
+    @ManyToOne
+    @JoinColumn(name = "propertyStatusId")
+    private PropertyStatus propertyStatus;
 
     @ManyToOne
     @JoinColumn(name = "propertyTypeId")
@@ -42,7 +44,7 @@ public class Properties {
 
 
     @OneToOne
-    @JoinColumn(name = "addressId",unique = true)
+    @JoinColumn(name = "addressId")
     private Addresses addresses;
 
     @ManyToOne
@@ -127,14 +129,6 @@ public class Properties {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public String getNotAvailableTime() {
-        return notAvailableTime;
-    }
-
-    public void setNotAvailableTime(String notAvailableTime) {
-        this.notAvailableTime = notAvailableTime;
     }
 
     public PropertiesTypes getPropertiesTypes() {
