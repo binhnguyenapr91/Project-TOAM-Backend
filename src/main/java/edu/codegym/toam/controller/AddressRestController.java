@@ -57,4 +57,13 @@ public class AddressRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/newAddress")
+    public ResponseEntity<Iterable<Long>> getNewAddress() {
+        try {
+            return ResponseEntity.ok(this.addressService.findNew());
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

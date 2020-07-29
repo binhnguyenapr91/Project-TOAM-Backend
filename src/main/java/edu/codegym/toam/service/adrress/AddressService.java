@@ -36,4 +36,9 @@ public class AddressService implements IAddressService {
     public Addresses create(Addresses addresses) {
         return addressRepository.save(addresses);
     }
+
+    @Override
+    public Iterable<Long> findNew() {
+        return addressRepository.findNewAddress();
+    }
 }
