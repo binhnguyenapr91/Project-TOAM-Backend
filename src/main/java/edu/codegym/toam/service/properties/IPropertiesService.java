@@ -19,5 +19,9 @@ public interface IPropertiesService {
 
     Iterable<Properties> filterProperties(String key);
 
+
+    Iterable<Properties> findAllByPropertiesTypes(String name);
+
     Iterable<Properties> findPropertiesByType(Long propertyTypeId);
+
 }

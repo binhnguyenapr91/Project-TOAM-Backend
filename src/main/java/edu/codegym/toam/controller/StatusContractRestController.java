@@ -1,6 +1,6 @@
 package edu.codegym.toam.controller;
 
-import edu.codegym.toam.model.Status;
+import edu.codegym.toam.model.ContractStatus;
 import edu.codegym.toam.service.statusContract.IStatusContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +16,12 @@ public class StatusContractRestController {
     IStatusContractService statusContractService;
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Status>> getStatusContract() {
+    public ResponseEntity<Iterable<ContractStatus>> getStatusContract() {
         return ResponseEntity.ok(this.statusContractService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Status> getStatusContractById(@PathVariable Long id) {
+    public ResponseEntity<ContractStatus> getStatusContractById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(this.statusContractService.findById(id));
         } catch (Exception e) {
@@ -30,7 +30,7 @@ public class StatusContractRestController {
     }
 
     @PostMapping()
-    public ResponseEntity<Status> createStatusContract(@RequestBody Status properties) {
+    public ResponseEntity<ContractStatus> createStatusContract(@RequestBody ContractStatus properties) {
 
         try {
             return ResponseEntity.ok(this.statusContractService.create(properties));
@@ -40,7 +40,7 @@ public class StatusContractRestController {
     }
 
     @PutMapping()
-    public ResponseEntity<Status> updateStatusContract(@RequestBody Status properties) {
+    public ResponseEntity<ContractStatus> updateStatusContract(@RequestBody ContractStatus properties) {
 
         try {
             return ResponseEntity.ok(this.statusContractService.update(properties));
