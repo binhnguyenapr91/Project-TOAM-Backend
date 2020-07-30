@@ -122,7 +122,7 @@ public class HostRestController {
     }
 
     //    Lấy tổng tiền thu đc của 1 host theo tháng
-    @PostMapping("/historyByMonth")
+    @PostMapping("/incomeLastThirtyDay")
     public ResponseEntity<Float> getHostValueInLastMonth() {
         Account currentHost = getCurrentAccount();
         Long hostId = currentHost.getId();
@@ -135,6 +135,16 @@ public class HostRestController {
         Account currentHost = getCurrentAccount();
         Long hostId = currentHost.getId();
         return ResponseEntity.ok(this.contractService.getHistory(hostId));
+    }
+
+    //    Lấy tổng tiền thu đc của 1 host
+    @PostMapping("/allValue")
+    public ResponseEntity<Float> getHostValue() {
+
+        Account currentHost = getCurrentAccount();
+        Long hostId = currentHost.getId();
+        System.out.println(hostId);
+        return ResponseEntity.ok(this.contractService.getHostValueById(hostId));
     }
 
 }

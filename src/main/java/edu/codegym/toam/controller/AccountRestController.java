@@ -1,16 +1,15 @@
 package edu.codegym.toam.controller;
 
 import edu.codegym.toam.model.Account;
-import edu.codegym.toam.model.Role;
+import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.service.account.IAccountService;
+import edu.codegym.toam.service.properties.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.NotActiveException;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/account")
@@ -19,11 +18,15 @@ public class AccountRestController {
     @Autowired
     IAccountService accountService;
 
+    @Autowired
+    IPropertiesService propertiesService;
+
     @GetMapping("")
     public ResponseEntity<Iterable<Account>> getAccounts() {
 
         return ResponseEntity.ok(this.accountService.findAll());
     }
+
 
     //Lấy danh sách tất cả những thằng chủ nhà
     @GetMapping("/host")
@@ -80,10 +83,11 @@ public class AccountRestController {
 
     //    Xóa account điều kiện ràng buộc là ko có bất kỳ hóa đơn nào
     @GetMapping("delete/{id}")
-    public ResponseEntity<String> removePropertyById(@PathVariable Long id) {
+    public ResponseEntity<String> removeAccountById(@PathVariable Long id) {
         try {
             if (this.accountService.findById(id) == null) throw new Exception();
             if (!this.accountService.checkAccountConstraint(id)) {
+                Iterable<Properties> properties = propertiesService.findAllPropertiesByHostId(id);
                 this.accountService.removeById(id);
                 return new ResponseEntity<>(HttpStatus.OK);
             } else throw new NotActiveException();
