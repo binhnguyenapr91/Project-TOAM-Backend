@@ -81,18 +81,6 @@ public class HostRestController {
         }
     }
 
-//    Sửa thông tin nhà
-//    @PutMapping("properties/{id}/update")
-//    public ResponseEntity<Properties> updateProperties(@RequestBody Properties properties) {
-//        Account currentHost = getCurrentAccount();
-//        Long id = currentHost.getId();
-//        try {
-//            return ResponseEntity.ok(this.propertiesService.update(properties));
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-//        }
-//    }
-
     //    Tìm properties theo quận,thành phố, tên properties, địa chỉ
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
