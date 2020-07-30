@@ -42,7 +42,6 @@ public class AccountRestController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(this.accountService.findById(id));
