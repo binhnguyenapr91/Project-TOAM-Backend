@@ -1,5 +1,6 @@
 package edu.codegym.toam.service.contract;
 
+import edu.codegym.toam.ValuePerMonth;
 import edu.codegym.toam.model.Contracts;
 
 public interface IContractService {
@@ -24,4 +25,6 @@ public interface IContractService {
     Float getHostValueById(Long hostId);
 
     Float getValueLastMonth(Long hostId);
+
+    Iterable<ValuePerMonth> getHistory(Long hostId);
 }

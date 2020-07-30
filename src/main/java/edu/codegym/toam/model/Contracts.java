@@ -94,11 +94,7 @@ public class Contracts {
     }
 
     public float getContractValue(){
-
         long duration  = this.endTime.getTime() - this.beginTime.getTime();
-//        long diffInSeconds = TimeUnit.MILLISECONDS.toSeconds(duration);
-//        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
-//        long diffInHours = TimeUnit.MILLISECONDS.toHours(duration);
         long diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
         return this.properties.getPrice()*diffInDays;
     };

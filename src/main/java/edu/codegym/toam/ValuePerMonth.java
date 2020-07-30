@@ -2,20 +2,18 @@ package edu.codegym.toam;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
-
-public class MonthValue {
+public class ValuePerMonth {
     @DateTimeFormat(pattern = "MM/yyyy")
-    private Date dateByMonth;
+    private String dateAndMonth;
     private long quantityOfContracts;
     private float valuePerMonth;
 
-    public Date getDateByMonth() {
-        return dateByMonth;
+    public String getDateAndMonth() {
+        return dateAndMonth;
     }
 
-    public void setDateByMonth(Date dateByMonth) {
-        this.dateByMonth = dateByMonth;
+    public void setDateAndMonth(String dateAndMonth) {
+        this.dateAndMonth = dateAndMonth;
     }
 
     public long getQuantityOfContracts() {

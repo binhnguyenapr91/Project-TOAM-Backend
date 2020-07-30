@@ -2,6 +2,7 @@ package edu.codegym.toam.repository;
 
 import edu.codegym.toam.model.Contracts;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
 
@@ -20,10 +21,14 @@ public interface ContractRepository extends JpaRepository<Contracts, Long> {
 
     Iterable<Contracts> findContractsByProperties_Host_IdAndCreateTimeBetween(Long hostId, Date now, Date beforeOneMonth);
 
-//    @Query("select c from Contracts c where c.createTime <= :creationDateTime")
-//    Iterable<Contracts> findContractsByProperties_Host_IdAndCreateTimeBetween(Long hostId, Date creationDateTime);
+    @Query("SELECT c FROM Contracts c WHERE c.properties.host.id =:hostId AND MONTH (c.createTime) = :month")
+    Iterable<Contracts> findHistoryContractPerMonth( Integer month,Long hostId);
+
+//    @Query(value = "SELECT c FROM Contracts c WHERE MONTH (c.createTime) = 7")
+//    Iterable<Contracts> findHistoryContractPerMonth( Integer month);
 
     Iterable<Contracts> findAllByCreateTimeBetweenAndProperties_Host_Id(Date beginToTrack,Date now,Long hostId);
     Iterable<Contracts> findAllByCreateTimeBetween(Date beginToTrack,Date now);
+
 
 }

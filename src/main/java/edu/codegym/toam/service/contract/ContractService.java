@@ -1,5 +1,6 @@
 package edu.codegym.toam.service.contract;
 
+import edu.codegym.toam.ValuePerMonth;
 import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.ContractStatus;
 import edu.codegym.toam.model.Contracts;
@@ -9,9 +10,13 @@ import edu.codegym.toam.repository.ContractStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class ContractService implements IContractService {
@@ -80,33 +85,40 @@ public class ContractService implements IContractService {
         return hostValue;
     }
 
-//    @Override
-//    public Float getValueLastMonth(Long hostId) {
-//
-//        Account host=accountRepository.findById(hostId).get();
-//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date now = new Date();
-//        System.out.println(now);
-//
-//        Date beforeOneMonth = new Date();
-//
-//        Calendar cal = Calendar.getInstance();
-//        now = cal.getTime();
-//        cal.add(Calendar.MONTH, -1);
-//        beforeOneMonth = cal.getTime();
-//
-//
-//        System.out.println(host.getCreatedDate());
-//
-//        Iterable<Contracts> contracts
-//                = contractRepository.findContractsByProperties_Host_IdAndCreateTimeBetween(hostId,now,beforeOneMonth);
-//
-//        Float monthValue = 0f;
-//        for (Contracts contract : contracts) {
-//            monthValue = +contract.getContractValue();
-//        }
-//        return monthValue;
-//    }
+    @Override
+    public Iterable<ValuePerMonth> getHistory(Long hostId) {
+        Account host = accountRepository.findById(hostId).get();
+        Date createdDate = host.getCreatedDate();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date();
+        Calendar cal = Calendar.getInstance();
+        now = cal.getTime();
+
+        List<ValuePerMonth> valuePerMonthsList = new ArrayList<ValuePerMonth>();
+        System.out.println(now);
+        System.out.println(createdDate);
+        while (createdDate.before(now) || createdDate.equals(now)) {
+            Integer month = createdDate.getMonth() + 1;
+            Iterable<Contracts> contracts = contractRepository
+                    .findHistoryContractPerMonth(month, hostId);
+            ValuePerMonth valuePerMonth = new ValuePerMonth();
+            int quantity=0;
+            float value=0;
+            for (Contracts contract : contracts
+            ) {
+                quantity++;
+               value+=contract.getContractValue();
+            }
+            valuePerMonth.setQuantityOfContracts(quantity);
+            valuePerMonth.setDateAndMonth((createdDate.getMonth()+1) +"/"+ (createdDate.getYear()+1900));
+            valuePerMonth.setValuePerMonth(value);
+            if (quantity>0)
+            valuePerMonthsList.add(valuePerMonth);
+
+            createdDate.setMonth(createdDate.getMonth() + 1);
+        }
+        return valuePerMonthsList;
+    }
 
     @Override
     public Float getValueLastMonth(Long hostId) {
@@ -122,9 +134,6 @@ public class ContractService implements IContractService {
 
         Date nowSql = java.sql.Date.valueOf(now);
         Date beforeOneMonthSql = java.sql.Date.valueOf(beforeOneMonth);
-        System.out.println(nowSql);
-        System.out.println(beforeOneMonthSql);
-
 
         Iterable<Contracts> contracts
                 = contractRepository.findAllByCreateTimeBetweenAndProperties_Host_Id(beforeOneMonthSql, nowSql, hostId);
@@ -136,7 +145,6 @@ public class ContractService implements IContractService {
 
             quantity++;
         }
-        System.out.println(quantity);
         return monthValue;
     }
 
