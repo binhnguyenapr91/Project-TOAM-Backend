@@ -36,6 +36,9 @@ public class ContractRestController {
     public ResponseEntity<Contracts> createContract(@RequestBody Contracts contracts) {
         Date checkinTime = contracts.getBeginTime();
         Date checkoutTime = contracts.getEndTime();
+
+        Long leaseTerm = checkoutTime.getTime()-checkinTime.getTime();
+        System.out.println(leaseTerm / (24*60*60*1000));
         Date currentTime = new Date();
         Boolean isTimeValid;
         isTimeValid = contractService.checkContractTime(currentTime,checkinTime,checkoutTime);

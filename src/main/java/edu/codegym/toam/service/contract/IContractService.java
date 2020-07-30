@@ -23,4 +23,6 @@ public interface IContractService {
     Iterable<Contracts> findAllContractsByRenterIdAndPropertyId(Long renterId,Long propertyId);
 
     boolean checkContractTime (Date currentTime, Date checkinTime, Date checkoutTime) throws ContractException;
+
+    boolean checkAvailableTime (Date checkinTime, Long id) throws ContractException;
 }

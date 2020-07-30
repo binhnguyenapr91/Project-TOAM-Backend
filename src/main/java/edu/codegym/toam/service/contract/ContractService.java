@@ -3,6 +3,7 @@ package edu.codegym.toam.service.contract;
 import edu.codegym.toam.exception.ContractException;
 import edu.codegym.toam.model.ContractStatus;
 import edu.codegym.toam.model.Contracts;
+import edu.codegym.toam.model.LeaseTerm;
 import edu.codegym.toam.repository.ContractRepository;
 import edu.codegym.toam.repository.ContractStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Component
@@ -68,5 +70,22 @@ public class ContractService implements IContractService {
         }else{
             return true;
         }
+    }
+
+    @Override
+    public boolean checkAvailableTime(Date checkinTime, Long id) throws ContractException {
+        Iterable<Contracts> contractsByPropertyId = contractRepository.findContractsByPropertiesId(id);
+        List<LeaseTerm> leaseTermList = null;
+        if (contractsByPropertyId != null){
+            for(Contracts item : contractsByPropertyId){
+                leaseTermList.add(new LeaseTerm(item.getBeginTime(),item.getEndTime()));
+            }
+        }
+        return false;
+    }
+
+    public Long getLeaseTerm (Date checkinTime,Date checkoutTime){
+        Long leaseTerm = checkoutTime.getTime()-checkinTime.getTime();
+        return leaseTerm / (24*60*60*1000);
     }
 }
