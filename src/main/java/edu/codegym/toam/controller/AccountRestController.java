@@ -1,6 +1,7 @@
 package edu.codegym.toam.controller;
 
 import edu.codegym.toam.model.Account;
+import edu.codegym.toam.model.Role;
 import edu.codegym.toam.service.account.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,9 +10,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.NotActiveException;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("api/account")
+@RequestMapping("/api/account")
 @CrossOrigin(origins = "*")
 public class AccountRestController {
     @Autowired
@@ -20,6 +22,7 @@ public class AccountRestController {
     @GetMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Iterable<Account>> getAccounts() {
+
         return ResponseEntity.ok(this.accountService.findAll());
     }
 
@@ -30,6 +33,8 @@ public class AccountRestController {
         return ResponseEntity.ok(this.accountService.findAllHost());
     }
 
+
+    //Lấy danh sách tất cả những thằng thuê nhàstreet
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/renter")
     public ResponseEntity<Iterable<Account>> getRenter() {
@@ -37,7 +42,6 @@ public class AccountRestController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(this.accountService.findById(id));
@@ -45,6 +49,7 @@ public class AccountRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
     @PostMapping()
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
