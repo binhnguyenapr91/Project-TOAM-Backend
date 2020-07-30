@@ -1,13 +1,15 @@
 package edu.codegym.toam.repository;
 
 import edu.codegym.toam.model.Contracts;
+import edu.codegym.toam.model.LeaseTerm;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
 
-public interface ContractRepository extends JpaRepository<Contracts, Long> {
-    Iterable<Contracts> findContractsByPropertiesId(Long propertyId);
 
+public interface ContractRepository extends JpaRepository<Contracts,Long> {
+    Iterable<Contracts>findContractsByPropertiesId(Long propertyId);
     Iterable<Contracts> findContractsByProperties_Host_Id(Long hostId);
 
     Iterable<Contracts> findContractsByRenter_Id(Long renterId);
@@ -24,6 +26,5 @@ public interface ContractRepository extends JpaRepository<Contracts, Long> {
 //    Iterable<Contracts> findContractsByProperties_Host_IdAndCreateTimeBetween(Long hostId, Date creationDateTime);
 
     Iterable<Contracts> findAllByCreateTimeBetweenAndProperties_Host_Id(Date beginToTrack,Date now,Long hostId);
-    Iterable<Contracts> findAllByCreateTimeBetween(Date beginToTrack,Date now);
 
 }

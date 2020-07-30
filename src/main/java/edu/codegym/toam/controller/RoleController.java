@@ -2,7 +2,6 @@ package edu.codegym.toam.controller;
 
 import edu.codegym.toam.model.Role;
 import edu.codegym.toam.service.role.IRoleService;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +31,12 @@ public class RoleController {
             Role roleRenter1 = roleRenter.get();
             roles.add(roleRenter1);
         }
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<Iterable<Role>> findAllRole() {
+        Iterable<Role> roles = roleService.findAll();
         return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 }
