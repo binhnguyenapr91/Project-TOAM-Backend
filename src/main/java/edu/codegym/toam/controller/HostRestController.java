@@ -1,5 +1,6 @@
 package edu.codegym.toam.controller;
 
+import edu.codegym.toam.ValuePerMonth;
 import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.Contracts;
 import edu.codegym.toam.model.Properties;
@@ -120,17 +121,20 @@ public class HostRestController {
         return this.accountService.findByUsername(username);
     }
 
-//    @PostMapping("/contracts/{hostId}")
-//    public ResponseEntity<Iterable<Contracts>> getHistoryContractById(@PathVariable Long hostId) {
-//        return ResponseEntity.ok(this.contractService.findAllContractsByHostId(id));
-//    }
+    //    Lấy tổng tiền thu đc của 1 host theo tháng
+    @PostMapping("/historyByMonth")
+    public ResponseEntity<Float> getHostValueInLastMonth() {
+        Account currentHost = getCurrentAccount();
+        Long hostId = currentHost.getId();
+        return ResponseEntity.ok(this.contractService.getValueLastMonth(hostId));
+    }
 
-//    @PostMapping("/contracts/history")
-//    public ResponseEntity<List<MonthValue>> getHistoryContractById() {
-//        Account currentHost = getCurrentAccount();
-//        Long hostId = currentHost.getId();
-//
-//        return ResponseEntity.ok(this.contractService.findAllContractsHistory(hostId));
-//    }
+    //    Xem lịch sử thu nhập theo tháng
+    @PostMapping("/value")
+    public ResponseEntity<Iterable<ValuePerMonth>> getHistoryAndValue() {
+        Account currentHost = getCurrentAccount();
+        Long hostId = currentHost.getId();
+        return ResponseEntity.ok(this.contractService.getHistory(hostId));
+    }
 
 }

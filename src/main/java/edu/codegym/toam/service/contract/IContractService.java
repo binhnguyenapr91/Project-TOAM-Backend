@@ -1,7 +1,8 @@
 package edu.codegym.toam.service.contract;
 
-import edu.codegym.toam.MonthValue;
+import edu.codegym.toam.ValuePerMonth;
 import edu.codegym.toam.model.Contracts;
+
 import java.util.List;
 import edu.codegym.toam.exception.ContractException;
 import edu.codegym.toam.model.Contracts;
@@ -28,6 +29,10 @@ public interface IContractService {
 
     Float getHostValueById(Long hostId);
 
+    Float getValueLastMonth(Long hostId);
+
+    Iterable<ValuePerMonth> getHistory(Long hostId);
+  
     List<MonthValue> findAllContractsHistory(Long hostId);
     
     boolean checkContractTime (Date currentTime, Date checkinTime, Date checkoutTime) throws ContractException;
