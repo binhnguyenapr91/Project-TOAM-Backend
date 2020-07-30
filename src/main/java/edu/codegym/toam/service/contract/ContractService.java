@@ -1,11 +1,18 @@
 package edu.codegym.toam.service.contract;
 
+import edu.codegym.toam.MonthValue;
+import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.ContractStatus;
 import edu.codegym.toam.model.Contracts;
+import edu.codegym.toam.repository.AccountRepository;
 import edu.codegym.toam.repository.ContractRepository;
 import edu.codegym.toam.repository.ContractStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class ContractService implements IContractService {
@@ -13,6 +20,8 @@ public class ContractService implements IContractService {
     ContractRepository contractRepository;
     @Autowired
     ContractStatusRepository contractStatusRepository;
+    @Autowired
+    AccountRepository accountRepository;
 
     @Override
     public Iterable<Contracts> findAll() {
@@ -70,5 +79,21 @@ public class ContractService implements IContractService {
             hostValue = +contracts.getContractValue();
         }
         return hostValue;
+    }
+
+    @Override
+    public List<MonthValue> findAllContractsHistory(Long hostId) {
+        Account host = accountRepository.findById(hostId).get();
+
+        Date myDate = new Date();
+         String now = new SimpleDateFormat("yyyy-MM").format(myDate);
+        System.out.println(now);
+
+        Date createMonth = host.getCreatedDate();
+
+        Iterable<Contracts> contracts
+                = contractRepository.findContractsByProperties_Host_IdAndCreateTimeContaining(hostId, now);
+        System.out.println(contracts);
+        return null;
     }
 }

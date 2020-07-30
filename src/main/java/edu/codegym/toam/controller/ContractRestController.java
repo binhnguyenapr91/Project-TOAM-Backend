@@ -80,4 +80,10 @@ public class ContractRestController {
     public ResponseEntity<Float> getHostValue(@PathVariable Long hostId) {
         return ResponseEntity.ok(this.contractService.getHostValueById(hostId));
     }
+
+    //    Lấy tổng tiền thu đc của 1 host
+    @PostMapping("hostValue/{hostId}")
+    public ResponseEntity<Float> getHostValueInLastMonth(@PathVariable Long hostId) {
+        return ResponseEntity.ok(this.contractService.getHostValueById(hostId));
+    }
 }
