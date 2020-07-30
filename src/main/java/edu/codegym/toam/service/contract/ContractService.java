@@ -124,6 +124,11 @@ public class ContractService implements IContractService {
     }
 
     @Override
+    public List<ValuePerMonth> findAllContractsHistory(Long hostId) {
+        return null;
+    }
+
+    @Override
     public Float getValueLastMonth(Long hostId) {
 
         Account host = accountRepository.findById(hostId).get();

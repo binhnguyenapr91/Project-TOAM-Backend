@@ -125,4 +125,7 @@ public class Account {
     }
 
 
+    public Date getCreatedDate() {
+        return null;
+    }
 }

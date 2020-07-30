@@ -33,7 +33,7 @@ public interface IContractService {
 
     Iterable<ValuePerMonth> getHistory(Long hostId);
   
-    List<MonthValue> findAllContractsHistory(Long hostId);
+    List<ValuePerMonth> findAllContractsHistory(Long hostId);
     
     boolean checkContractTime (Date currentTime, Date checkinTime, Date checkoutTime) throws ContractException;
 
