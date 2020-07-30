@@ -124,5 +124,11 @@ public class Account {
         this.status = !this.status;
     }
 
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 }
