@@ -75,7 +75,7 @@ public class ContractService implements IContractService {
         Iterable<Contracts> allContracts = contractRepository.findContractsByProperties_Host_Id(hostId);
         Float hostValue = 0f;
         for (Contracts contracts : allContracts) {
-            hostValue = +contracts.getContractValue();
+            hostValue += contracts.getContractValue();
         }
         return hostValue;
     }
@@ -131,7 +131,9 @@ public class ContractService implements IContractService {
         int quantity = 0;
         Float monthValue = 0f;
         for (Contracts contract : contracts) {
-            monthValue = +contract.getContractValue();
+            System.out.println(contract.getContractValue());
+            monthValue += contract.getContractValue();
+
             quantity++;
         }
         System.out.println(quantity);

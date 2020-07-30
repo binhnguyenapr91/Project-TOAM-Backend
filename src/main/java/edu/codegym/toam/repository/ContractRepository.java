@@ -23,7 +23,7 @@ public interface ContractRepository extends JpaRepository<Contracts, Long> {
 //    @Query("select c from Contracts c where c.createTime <= :creationDateTime")
 //    Iterable<Contracts> findContractsByProperties_Host_IdAndCreateTimeBetween(Long hostId, Date creationDateTime);
 
-    Iterable<Contracts> findAllByCreateTimeBetween(Date beginToTrack,Date now);
     Iterable<Contracts> findAllByCreateTimeBetweenAndProperties_Host_Id(Date beginToTrack,Date now,Long hostId);
+    Iterable<Contracts> findAllByCreateTimeBetween(Date beginToTrack,Date now);
 
 }
