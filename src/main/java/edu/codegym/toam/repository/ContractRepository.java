@@ -16,10 +16,6 @@ public interface ContractRepository extends JpaRepository<Contracts, Long> {
 
     Iterable<Contracts> findContractsByRenter_IdAndProperties_Id(Long renterId, Long propertyId);
 
-//        @Query("select c from Contracts c where " +
-//                "c.properties.host.id =:hostId and( c.createTime <= :now and c.createTime>:beforeOneMonth)")
-//    Iterable<Contracts> findContractsByProperties_Host_IdAndTime(Long hostId, Date now, Date beforeOneMonth);
-
     Iterable<Contracts> findContractsByProperties_Host_IdAndCreateTimeBetween(Long hostId, Date now, Date beforeOneMonth);
 
     @Query("SELECT c FROM Contracts c "
@@ -30,7 +26,5 @@ public interface ContractRepository extends JpaRepository<Contracts, Long> {
 
     Iterable<Contracts> findAllByCreateTimeBetweenAndProperties_Host_Id(Date beginToTrack, Date now, Long hostId);
 
-    Iterable<Contracts> findAllByCreateTimeBetween(Date beginToTrack, Date now);
-
-
+    Long countContractsByProperties_Host_Id(Long hostId);
 }

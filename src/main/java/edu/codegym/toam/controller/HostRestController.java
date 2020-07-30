@@ -133,5 +133,12 @@ public class HostRestController {
         System.out.println(hostId);
         return ResponseEntity.ok(this.contractService.getHostValueById(hostId));
     }
+    //    Láy số lượng hợp đồng
+    @PostMapping("/contractsQuantity")
+    public ResponseEntity<Long> getContractQuantityByHost() {
+        Account currentHost = getCurrentAccount();
+        Long hostId = currentHost.getId();
+        return ResponseEntity.ok(this.contractService.getContractQuantityByHost(hostId));
+    }
 
 }
