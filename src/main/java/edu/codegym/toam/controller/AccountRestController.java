@@ -20,14 +20,12 @@ public class AccountRestController {
     IAccountService accountService;
 
     @GetMapping("")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Iterable<Account>> getAccounts() {
 
         return ResponseEntity.ok(this.accountService.findAll());
     }
 
     //Lấy danh sách tất cả những thằng chủ nhà
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/host")
     public ResponseEntity<Iterable<Account>> getHost() {
         return ResponseEntity.ok(this.accountService.findAllHost());
@@ -35,7 +33,6 @@ public class AccountRestController {
 
 
     //Lấy danh sách tất cả những thằng thuê nhàstreet
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/renter")
     public ResponseEntity<Iterable<Account>> getRenter() {
         return ResponseEntity.ok(this.accountService.findAllRenter());
@@ -61,7 +58,6 @@ public class AccountRestController {
     }
 
     @PutMapping()
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_RENTER','ROLE_HOST')")
     public ResponseEntity<Account> updateAccount(@RequestBody Account account) {
         try {
             return ResponseEntity.ok(this.accountService.update(account));
@@ -73,7 +69,6 @@ public class AccountRestController {
 
     //    Chuyển đổi trạng thái account (từ block sang không block và ngược lại)
     @PostMapping("/edit/{accountId}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_RENTER','ROLE_HOST')")
     public ResponseEntity<Account> changeAccountStatus(@PathVariable Long accountId) {
         try {
             this.accountService.changeAccountStatus(accountId);
@@ -84,7 +79,6 @@ public class AccountRestController {
     }
 
     //    Xóa account điều kiện ràng buộc là ko có bất kỳ hóa đơn nào
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("delete/{id}")
     public ResponseEntity<String> removePropertyById(@PathVariable Long id) {
         try {
