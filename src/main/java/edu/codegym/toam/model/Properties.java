@@ -3,7 +3,8 @@ package edu.codegym.toam.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -11,16 +12,27 @@ public class Properties {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
+    @Min(10)
     private float size;
+    @NotNull
+    @Min(1)
     private int bedrooms;
+    @NotNull
+    @Min(1)
     private int bathrooms;
+    @NotNull
+    @Min(3)
     private float price;
     private String description;
     private String images;
     private String videos;
-    private boolean status;
-    private String notAvailableTime;
+
+    @ManyToOne
+    @JoinColumn(name = "propertyStatusId")
+    private PropertyStatus propertyStatus;
 
     @ManyToOne
     @JoinColumn(name = "propertyTypeId")
@@ -32,10 +44,7 @@ public class Properties {
 
     @ManyToOne
     @JoinColumn(name = "hostId")
-    private Account hostId;
-
-    @OneToOne
-    private Contracts contracts;
+    private Account host;
 
     public Long getId() {
         return id;
@@ -109,22 +118,6 @@ public class Properties {
         this.videos = videos;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public String getNotAvailableTime() {
-        return notAvailableTime;
-    }
-
-    public void setNotAvailableTime(String notAvailableTime) {
-        this.notAvailableTime = notAvailableTime;
-    }
-
     public PropertiesTypes getPropertiesTypes() {
         return propertiesTypes;
     }
@@ -141,19 +134,19 @@ public class Properties {
         this.addresses = addresses;
     }
 
-    public Account getHostId() {
-        return hostId;
+    public Account getHost() {
+        return host;
     }
 
-    public void setHostId(Account hostId) {
-        this.hostId = hostId;
+    public void setHost(Account host) {
+        this.host = host;
     }
 
-    public Contracts getContracts() {
-        return contracts;
+    public PropertyStatus getPropertyStatus() {
+        return propertyStatus;
     }
 
-    public void setContracts(Contracts contracts) {
-        this.contracts = contracts;
+    public void setPropertyStatus(PropertyStatus propertyStatus) {
+        this.propertyStatus = propertyStatus;
     }
 }
