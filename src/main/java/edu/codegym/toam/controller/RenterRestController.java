@@ -1,6 +1,7 @@
 package edu.codegym.toam.controller;
 
 import edu.codegym.toam.model.Account;
+import edu.codegym.toam.model.ContractStatus;
 import edu.codegym.toam.model.Contracts;
 import edu.codegym.toam.model.Properties;
 import edu.codegym.toam.service.account.IAccountService;
@@ -68,6 +69,7 @@ public class RenterRestController {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
     //    Hiển thị tất cả properties có trong contract của thằng renter vừa đăng nhập
     @GetMapping("/properties")
     public ResponseEntity<Iterable<Properties>> hostProperties() {
@@ -76,11 +78,27 @@ public class RenterRestController {
         return ResponseEntity.ok(this.propertiesService.findAllPropertiesByHostId(id));
     }
 
+    //Chỉ cho phép hủy hợp đồng trước 1 ngày (trước ngày begin date trong hóa đơn)
+    @GetMapping("/cancel/{contractId}")
+    public ResponseEntity<Object> cancelContract(@PathVariable Long contractId) {
+        try {
+            Account currentHost = getCurrentAccount();
+            Long id = currentHost.getId();
+            if (this.contractService.checkContractCancel(contractId)) {
+                Contracts cancelContractId = this.contractService.findById(contractId);
+                ContractStatus contractStatus = new ContractStatus();
+                contractStatus.setId((long) 2);
+                cancelContractId.setContractStatus(contractStatus);
+                return ResponseEntity.ok(HttpStatus.ACCEPTED);
+            } else throw new Exception();
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
     private Account getCurrentAccount() {
         Authentication loggedAccount = SecurityContextHolder.getContext().getAuthentication();
         String username = loggedAccount.getName();
         return this.accountService.findByUsername(username);
     }
-
-
 }

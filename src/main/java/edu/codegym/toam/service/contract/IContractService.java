@@ -37,4 +37,6 @@ public interface IContractService {
     boolean checkContractTime (Date currentTime, Date checkinTime, Date checkoutTime) throws ContractException;
 
     boolean checkAvailableTime (Date checkinTime, Long id) throws ContractException;
+
+    boolean checkContractCancel(Long contractId);
 }

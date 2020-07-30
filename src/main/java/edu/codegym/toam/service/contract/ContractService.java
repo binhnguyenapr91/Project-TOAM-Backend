@@ -1,17 +1,19 @@
 package edu.codegym.toam.service.contract;
 
 import edu.codegym.toam.ValuePerMonth;
+import edu.codegym.toam.exception.ContractException;
 import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.ContractStatus;
 import edu.codegym.toam.model.Contracts;
-import edu.codegym.toam.repository.AccountRepository;
-import edu.codegym.toam.exception.ContractException;
 import edu.codegym.toam.model.LeaseTerm;
+import edu.codegym.toam.repository.AccountRepository;
 import edu.codegym.toam.repository.ContractRepository;
 import edu.codegym.toam.repository.ContractStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -102,18 +104,18 @@ public class ContractService implements IContractService {
             Iterable<Contracts> contracts = contractRepository
                     .findHistoryContractPerMonth(month, hostId);
             ValuePerMonth valuePerMonth = new ValuePerMonth();
-            int quantity=0;
-            float value=0;
+            int quantity = 0;
+            float value = 0;
             for (Contracts contract : contracts
             ) {
                 quantity++;
-               value+=contract.getContractValue();
+                value += contract.getContractValue();
             }
             valuePerMonth.setQuantityOfContracts(quantity);
-            valuePerMonth.setDateAndMonth((createdDate.getMonth()+1) +"/"+ (createdDate.getYear()+1900));
+            valuePerMonth.setDateAndMonth((createdDate.getMonth() + 1) + "/" + (createdDate.getYear() + 1900));
             valuePerMonth.setValuePerMonth(value);
-            if (quantity>0)
-            valuePerMonthsList.add(valuePerMonth);
+            if (quantity > 0)
+                valuePerMonthsList.add(valuePerMonth);
 
             createdDate.setMonth(createdDate.getMonth() + 1);
         }
@@ -153,11 +155,11 @@ public class ContractService implements IContractService {
         return monthValue;
     }
 
-  
-    public boolean checkContractTime (Date currentTime,Date checkinTime,Date checkoutTime) throws ContractException {
-        if(checkinTime.before(currentTime)||checkoutTime.before(checkinTime)){
+
+    public boolean checkContractTime(Date currentTime, Date checkinTime, Date checkoutTime) throws ContractException {
+        if (checkinTime.before(currentTime) || checkoutTime.before(checkinTime)) {
             throw new ContractException();
-        }else{
+        } else {
             return true;
         }
     }
@@ -166,16 +168,30 @@ public class ContractService implements IContractService {
     public boolean checkAvailableTime(Date checkinTime, Long id) throws ContractException {
         Iterable<Contracts> contractsByPropertyId = contractRepository.findContractsByPropertiesId(id);
         List<LeaseTerm> leaseTermList = null;
-        if (contractsByPropertyId != null){
-            for(Contracts item : contractsByPropertyId){
-                leaseTermList.add(new LeaseTerm(item.getBeginTime(),item.getEndTime()));
+        if (contractsByPropertyId != null) {
+            for (Contracts item : contractsByPropertyId) {
+                leaseTermList.add(new LeaseTerm(item.getBeginTime(), item.getEndTime()));
             }
         }
         return false;
     }
 
-    public Long getLeaseTerm (Date checkinTime,Date checkoutTime){
-        Long leaseTerm = checkoutTime.getTime()-checkinTime.getTime();
-        return leaseTerm / (24*60*60*1000);
+    public Long getLeaseTerm(Date checkinTime, Date checkoutTime) {
+        Long leaseTerm = checkoutTime.getTime() - checkinTime.getTime();
+        return leaseTerm / (24 * 60 * 60 * 1000);
     }
+
+    @Override
+    public boolean checkContractCancel(Long contractId) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(now);
+        c.add(Calendar.DATE, +1);
+        now = c.getTime();
+        Contracts contract = contractRepository.findById(contractId).get();
+        Date beginTime = contract.getBeginTime();
+        return now.before(beginTime);
+    }
+
 }
