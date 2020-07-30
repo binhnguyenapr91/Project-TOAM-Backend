@@ -1,6 +1,5 @@
 package edu.codegym.toam.service.contract;
 
-import edu.codegym.toam.MonthValue;
 import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.ContractStatus;
 import edu.codegym.toam.model.Contracts;
@@ -10,9 +9,9 @@ import edu.codegym.toam.repository.ContractStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class ContractService implements IContractService {
@@ -81,19 +80,62 @@ public class ContractService implements IContractService {
         return hostValue;
     }
 
+//    @Override
+//    public Float getValueLastMonth(Long hostId) {
+//
+//        Account host=accountRepository.findById(hostId).get();
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date now = new Date();
+//        System.out.println(now);
+//
+//        Date beforeOneMonth = new Date();
+//
+//        Calendar cal = Calendar.getInstance();
+//        now = cal.getTime();
+//        cal.add(Calendar.MONTH, -1);
+//        beforeOneMonth = cal.getTime();
+//
+//
+//        System.out.println(host.getCreatedDate());
+//
+//        Iterable<Contracts> contracts
+//                = contractRepository.findContractsByProperties_Host_IdAndCreateTimeBetween(hostId,now,beforeOneMonth);
+//
+//        Float monthValue = 0f;
+//        for (Contracts contract : contracts) {
+//            monthValue = +contract.getContractValue();
+//        }
+//        return monthValue;
+//    }
+
     @Override
-    public List<MonthValue> findAllContractsHistory(Long hostId) {
+    public Float getValueLastMonth(Long hostId) {
+
         Account host = accountRepository.findById(hostId).get();
 
-        Date myDate = new Date();
-         String now = new SimpleDateFormat("yyyy-MM").format(myDate);
-        System.out.println(now);
+        LocalDateTime nowDate = LocalDateTime.now();
+        LocalDateTime beforeDate = nowDate.minusMonths(1);
 
-        Date createMonth = host.getCreatedDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String now = nowDate.format(formatter);
+        String beforeOneMonth = beforeDate.format(formatter);
+
+        Date nowSql = java.sql.Date.valueOf(now);
+        Date beforeOneMonthSql = java.sql.Date.valueOf(beforeOneMonth);
+        System.out.println(nowSql);
+        System.out.println(beforeOneMonthSql);
+
 
         Iterable<Contracts> contracts
-                = contractRepository.findContractsByProperties_Host_IdAndCreateTimeContaining(hostId, now);
-        System.out.println(contracts);
-        return null;
+                = contractRepository.findAllByCreateTimeBetweenAndProperties_Host_Id(beforeOneMonthSql, nowSql, hostId);
+        int quantity = 0;
+        Float monthValue = 0f;
+        for (Contracts contract : contracts) {
+            monthValue = +contract.getContractValue();
+            quantity++;
+        }
+        System.out.println(quantity);
+        return monthValue;
     }
+
 }

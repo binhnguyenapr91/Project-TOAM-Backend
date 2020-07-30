@@ -133,4 +133,13 @@ public class HostRestController {
 //        return ResponseEntity.ok(this.contractService.findAllContractsHistory(hostId));
 //    }
 
+    //    Lấy tổng tiền thu đc của 1 host theo tháng
+    @PostMapping("/historyByMonth")
+    public ResponseEntity<Float> getHostValueInLastMonth() {
+        Account currentHost = getCurrentAccount();
+        Long hostId = currentHost.getId();
+
+        return ResponseEntity.ok(this.contractService.getValueLastMonth(hostId));
+    }
+
 }

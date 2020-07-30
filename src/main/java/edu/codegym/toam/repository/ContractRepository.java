@@ -3,18 +3,27 @@ package edu.codegym.toam.repository;
 import edu.codegym.toam.model.Contracts;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ContractRepository extends JpaRepository<Contracts,Long> {
-    Iterable<Contracts>findContractsByPropertiesId(Long propertyId);
+import java.util.Date;
+
+public interface ContractRepository extends JpaRepository<Contracts, Long> {
+    Iterable<Contracts> findContractsByPropertiesId(Long propertyId);
 
     Iterable<Contracts> findContractsByProperties_Host_Id(Long hostId);
+
     Iterable<Contracts> findContractsByRenter_Id(Long renterId);
-    Iterable<Contracts> findContractsByRenter_IdAndProperties_Id(Long renterId,Long propertyId);
 
-    Iterable<Contracts> findContractsByProperties_Host_IdAndCreateTimeContaining(Long hostId, String now);
+    Iterable<Contracts> findContractsByRenter_IdAndProperties_Id(Long renterId, Long propertyId);
 
-//    @Query(value = "select c from Contracts c where "
-//            + "c.renter.id = :renterId"
-//    )
-//    Iterable<Contracts> findAllContractsByRenterId(Long renterId);
+//        @Query("select c from Contracts c where " +
+//                "c.properties.host.id =:hostId and( c.createTime <= :now and c.createTime>:beforeOneMonth)")
+//    Iterable<Contracts> findContractsByProperties_Host_IdAndTime(Long hostId, Date now, Date beforeOneMonth);
+
+    Iterable<Contracts> findContractsByProperties_Host_IdAndCreateTimeBetween(Long hostId, Date now, Date beforeOneMonth);
+
+//    @Query("select c from Contracts c where c.createTime <= :creationDateTime")
+//    Iterable<Contracts> findContractsByProperties_Host_IdAndCreateTimeBetween(Long hostId, Date creationDateTime);
+
+    Iterable<Contracts> findAllByCreateTimeBetween(Date beginToTrack,Date now);
+    Iterable<Contracts> findAllByCreateTimeBetweenAndProperties_Host_Id(Date beginToTrack,Date now,Long hostId);
 
 }
