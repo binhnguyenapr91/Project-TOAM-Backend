@@ -48,20 +48,20 @@ public class PropertiesRestController {
 
     @PostMapping("")
     public ResponseEntity<Properties> createProperties(@RequestBody Properties properties) {
-
         CustomAccountDetail user = (CustomAccountDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(user);
         Account account = accountService.findById(user.getId());
+        System.out.println(account);
         properties.setHost(account);
-        propertiesService.create(properties);
-        Properties properties1 = this.propertiesService.create(properties);
+        Properties properties1 =   propertiesService.create(properties);
         return new ResponseEntity<>(properties1, HttpStatus.OK);
-
     }
 
     @PutMapping()
     public ResponseEntity<Properties> updateProperties(@RequestBody Properties properties) {
-
+        CustomAccountDetail user = (CustomAccountDetail) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Account account = accountService.findById(user.getId());
+        properties.setHost(account);
         try {
             return ResponseEntity.ok(this.propertiesService.update(properties));
         } catch (Exception e) {

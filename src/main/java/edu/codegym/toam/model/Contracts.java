@@ -1,18 +1,20 @@
 package edu.codegym.toam.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 //Không cho phép 1 renter tạo nhiều contracts với cùng 1 thời gian bắt đầu và cùng 1 địa chỉ 1renterId
 @Table(uniqueConstraints={
         @UniqueConstraint(columnNames = {"beginTime","renterId", "propertiesId"})
 })
 @Entity
-@ScriptAssert(lang = "javascript", script = "_this.createTime.before(_this.beginTime)")
-@ScriptAssert(lang = "javascript", script = "_this.beginTime.before(_this.endTime)")
+//@ScriptAssert(lang = "javascript", script = "_this.createTime.before(_this.beginTime)")
+//@ScriptAssert(lang = "javascript", script = "_this.beginTime.before(_this.endTime)")
 
 public class Contracts {
     @Id
@@ -20,8 +22,11 @@ public class Contracts {
     private Long id;
 
     @CreationTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date createTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date beginTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date endTime;
 
     @ManyToOne
@@ -91,4 +96,14 @@ public class Contracts {
     public void setProperties(Properties properties) {
         this.properties = properties;
     }
+
+    public float getContractValue(){
+
+        long duration  = this.endTime.getTime() - this.beginTime.getTime();
+//        long diffInSeconds = TimeUnit.MILLISECONDS.toSeconds(duration);
+//        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+//        long diffInHours = TimeUnit.MILLISECONDS.toHours(duration);
+        long diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
+        return this.properties.getPrice()*diffInDays;
+    };
 }

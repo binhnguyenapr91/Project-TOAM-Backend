@@ -119,4 +119,18 @@ public class HostRestController {
         String username = loggedAccount.getName();
         return this.accountService.findByUsername(username);
     }
+
+//    @PostMapping("/contracts/{hostId}")
+//    public ResponseEntity<Iterable<Contracts>> getHistoryContractById(@PathVariable Long hostId) {
+//        return ResponseEntity.ok(this.contractService.findAllContractsByHostId(id));
+//    }
+
+//    @PostMapping("/contracts/history")
+//    public ResponseEntity<List<MonthValue>> getHistoryContractById() {
+//        Account currentHost = getCurrentAccount();
+//        Long hostId = currentHost.getId();
+//
+//        return ResponseEntity.ok(this.contractService.findAllContractsHistory(hostId));
+//    }
+
 }
