@@ -130,7 +130,7 @@ public class HostRestController {
     }
 
     //    Xem lịch sử thu nhập theo tháng
-    @PostMapping("/value")
+    @GetMapping("/value")
     public ResponseEntity<Iterable<ValuePerMonth>> getHistoryAndValue() {
         Account currentHost = getCurrentAccount();
         Long hostId = currentHost.getId();
