@@ -2,6 +2,7 @@ package edu.codegym.toam.controller;
 
 import edu.codegym.toam.exception.ContractException;
 import edu.codegym.toam.model.Contracts;
+import edu.codegym.toam.payload.response.MessageResponse;
 import edu.codegym.toam.service.contract.IContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class ContractRestController {
     }
 
     @PostMapping()
-    public ResponseEntity<Contracts> createContract(@RequestBody Contracts contracts) {
+    public ResponseEntity<?> createContract(@RequestBody Contracts contracts) {
         Date checkinTime = contracts.getBeginTime();
         Date checkoutTime = contracts.getEndTime();
 
@@ -43,7 +44,8 @@ public class ContractRestController {
         Boolean isTimeValid;
         isTimeValid = contractService.checkContractTime(currentTime,checkinTime,checkoutTime);
         System.out.println(currentTime);
-        return ResponseEntity.ok(this.contractService.create(contracts));
+        this.contractService.create(contracts);
+        return ResponseEntity.ok(new MessageResponse("Contract is created"));
     }
 
     @PutMapping()
