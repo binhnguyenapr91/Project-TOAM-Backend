@@ -130,7 +130,6 @@ public class HostRestController {
     public ResponseEntity<Float> getHostValue() {
         Account currentHost = getCurrentAccount();
         Long hostId = currentHost.getId();
-        System.out.println(hostId);
         return ResponseEntity.ok(this.contractService.getHostValueById(hostId));
     }
     //    Láy số lượng hợp đồng
