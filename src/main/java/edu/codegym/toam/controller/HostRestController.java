@@ -1,6 +1,5 @@
 package edu.codegym.toam.controller;
 
-import edu.codegym.toam.MonthValue;
 import edu.codegym.toam.model.Account;
 import edu.codegym.toam.model.Contracts;
 import edu.codegym.toam.model.Properties;
@@ -13,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/host")
@@ -128,12 +125,12 @@ public class HostRestController {
 //        return ResponseEntity.ok(this.contractService.findAllContractsByHostId(id));
 //    }
 
-    @PostMapping("/contracts/history")
-    public ResponseEntity<List<MonthValue>> getHistoryContractById() {
-        Account currentHost = getCurrentAccount();
-        Long hostId = currentHost.getId();
-
-        return ResponseEntity.ok(this.contractService.findAllContractsHistory(hostId));
-    }
+//    @PostMapping("/contracts/history")
+//    public ResponseEntity<List<MonthValue>> getHistoryContractById() {
+//        Account currentHost = getCurrentAccount();
+//        Long hostId = currentHost.getId();
+//
+//        return ResponseEntity.ok(this.contractService.findAllContractsHistory(hostId));
+//    }
 
 }
