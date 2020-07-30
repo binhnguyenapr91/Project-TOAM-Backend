@@ -96,10 +96,7 @@ public class ContractService implements IContractService {
         Date now = new Date();
         Calendar cal = Calendar.getInstance();
         now = cal.getTime();
-
         List<ValuePerMonth> valuePerMonthsList = new ArrayList<ValuePerMonth>();
-        System.out.println(now);
-        System.out.println(createdDate);
         while (createdDate.before(now) || createdDate.equals(now)) {
             Integer month = createdDate.getMonth() + 1;
             Iterable<Contracts> contracts = contractRepository
