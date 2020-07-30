@@ -101,8 +101,9 @@ public class ContractService implements IContractService {
         List<ValuePerMonth> valuePerMonthsList = new ArrayList<ValuePerMonth>();
         while (createdDate.before(now) || createdDate.equals(now)) {
             Integer month = createdDate.getMonth() + 1;
+            Integer year = createdDate.getYear() + 1900;
             Iterable<Contracts> contracts = contractRepository
-                    .findHistoryContractPerMonth(month, hostId);
+                    .findHistoryContractPerMonth(year,month, hostId);
             ValuePerMonth valuePerMonth = new ValuePerMonth();
             int quantity = 0;
             float value = 0;
