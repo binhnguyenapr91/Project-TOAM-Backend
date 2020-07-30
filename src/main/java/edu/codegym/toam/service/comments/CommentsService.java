@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service;
 public class CommentsService implements ICommentsService {
     @Autowired
     CommentRepository commentRepository;
+
+    @Override
+    public Iterable<Comments> findAllCommentByAccountId(Long hostId) {
+        return commentRepository.findCommentsByAccount_Id(hostId);
+
+    }
+
     @Autowired
     PropertiesRepository propertiesRepository;
 
