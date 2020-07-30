@@ -76,4 +76,22 @@ public class ContractRestController {
     public ResponseEntity<Iterable<Contracts>> getContractRenter(@PathVariable Long renterId) {
         return ResponseEntity.ok(this.contractService.findAllContractsByRenterId(renterId));
     }
+
+    //    Lấy giá trị của 1 hợp đồng
+    @PostMapping("value/{contractId}")
+    public ResponseEntity<Float> getContractValue(@PathVariable Long contractId) {
+        return ResponseEntity.ok(this.contractService.getContractValueById(contractId));
+    }
+
+    //    Lấy tổng tiền thu đc của 1 host
+    @PostMapping("hostValue/{hostId}")
+    public ResponseEntity<Float> getHostValue(@PathVariable Long hostId) {
+        return ResponseEntity.ok(this.contractService.getHostValueById(hostId));
+    }
+
+//    //    Lấy tổng tiền thu đc của 1 host
+//    @PostMapping("hostValue/{hostId}")
+//    public ResponseEntity<Float> getHostValueInLastMonth(@PathVariable Long hostId) {
+//        return ResponseEntity.ok(this.contractService.getHostValueById(hostId));
+//    }
 }

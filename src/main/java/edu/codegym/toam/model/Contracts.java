@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.ScriptAssert;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 //Không cho phép 1 renter tạo nhiều contracts với cùng 1 thời gian bắt đầu và cùng 1 địa chỉ 1renterId
 @Table(uniqueConstraints={
@@ -95,4 +96,14 @@ public class Contracts {
     public void setProperties(Properties properties) {
         this.properties = properties;
     }
+
+    public float getContractValue(){
+
+        long duration  = this.endTime.getTime() - this.beginTime.getTime();
+//        long diffInSeconds = TimeUnit.MILLISECONDS.toSeconds(duration);
+//        long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+//        long diffInHours = TimeUnit.MILLISECONDS.toHours(duration);
+        long diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
+        return this.properties.getPrice()*diffInDays;
+    };
 }

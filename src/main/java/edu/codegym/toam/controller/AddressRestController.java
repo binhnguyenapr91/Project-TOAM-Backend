@@ -15,12 +15,12 @@ public class AddressRestController {
      IAddressService addressService;
 
     @GetMapping("")
-    public ResponseEntity<Iterable<Addresses>> getAccounts() {
+    public ResponseEntity<Iterable<Addresses>> getAddress() {
         return ResponseEntity.ok(this.addressService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Addresses> getAccountById(@PathVariable Long id) {
+    public ResponseEntity<Addresses> getAddressById(@PathVariable Long id) {
         try {
             return ResponseEntity.ok(this.addressService.findById(id));
         } catch (Exception e) {
@@ -28,8 +28,9 @@ public class AddressRestController {
         }
     }
 
+
     @PostMapping()
-    public ResponseEntity<Addresses> createAccount(@RequestBody Addresses addresses) {
+    public ResponseEntity<Addresses> createAddress(@RequestBody Addresses addresses) {
         try {
             return ResponseEntity.ok(this.addressService.create(addresses));
         } catch (Exception e) {
@@ -38,7 +39,7 @@ public class AddressRestController {
     }
 
     @PutMapping()
-    public ResponseEntity<Addresses> updateAccount(@RequestBody Addresses addresses) {
+    public ResponseEntity<Addresses> updateAddress(@RequestBody Addresses addresses) {
 
         try {
             return ResponseEntity.ok(this.addressService.update(addresses));
@@ -53,6 +54,16 @@ public class AddressRestController {
             this.addressService.removeById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+//    Chỉ lấy những thằng address mới đc tạo
+    @GetMapping("/newAddress")
+    public ResponseEntity<Iterable<Long>> getNewAddress() {
+        try {
+            return ResponseEntity.ok(this.addressService.findNew());
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

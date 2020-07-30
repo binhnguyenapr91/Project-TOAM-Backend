@@ -11,6 +11,8 @@ public interface ContractRepository extends JpaRepository<Contracts,Long> {
     Iterable<Contracts> findContractsByRenter_Id(Long renterId);
     Iterable<Contracts> findContractsByRenter_IdAndProperties_Id(Long renterId,Long propertyId);
 
+    Iterable<Contracts> findContractsByProperties_Host_IdAndCreateTimeContaining(Long hostId, String now);
+
 //    @Query(value = "select c from Contracts c where "
 //            + "c.renter.id = :renterId"
 //    )
