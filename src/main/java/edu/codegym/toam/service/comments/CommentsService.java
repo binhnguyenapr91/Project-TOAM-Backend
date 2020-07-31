@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service;
 public class CommentsService implements ICommentsService {
     @Autowired
     CommentRepository commentRepository;
+
+    @Override
+    public Iterable<Comments> findAllCommentByAccountId(Long hostId) {
+        return commentRepository.findCommentsByAccount_Id(hostId);
+
+    }
+
     @Autowired
     PropertiesRepository propertiesRepository;
 
@@ -43,7 +50,8 @@ public class CommentsService implements ICommentsService {
 
     @Override
     public Iterable<Comments> findAllCommentByPropertyId(Long propertyId) {
-        return commentRepository.findCommentsByProperties_Id(propertyId);
+//        return commentRepository.findCommentsByProperties_Id(propertyId);
+        return commentRepository.findCommentsByProperties_IdOrderByCreateDateDesc(propertyId);
     }
 
     @Override
