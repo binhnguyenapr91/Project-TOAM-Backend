@@ -43,7 +43,8 @@ public class CommentsService implements ICommentsService {
 
     @Override
     public Iterable<Comments> findAllCommentByPropertyId(Long propertyId) {
-        return commentRepository.findCommentsByProperties_Id(propertyId);
+//        return commentRepository.findCommentsByProperties_Id(propertyId);
+        return commentRepository.findCommentsByProperties_IdOrderByCreateDateDesc(propertyId);
     }
 
     @Override
