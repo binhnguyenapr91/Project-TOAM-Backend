@@ -81,18 +81,6 @@ public class HostRestController {
         }
     }
 
-//    Sửa thông tin nhà
-//    @PutMapping("properties/{id}/update")
-//    public ResponseEntity<Properties> updateProperties(@RequestBody Properties properties) {
-//        Account currentHost = getCurrentAccount();
-//        Long id = currentHost.getId();
-//        try {
-//            return ResponseEntity.ok(this.propertiesService.update(properties));
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-//        }
-//    }
-
     //    Tìm properties theo quận,thành phố, tên properties, địa chỉ
     @GetMapping("/filter/{key}")
     public ResponseEntity<Iterable<Properties>> searchForProperties(@PathVariable String key) {
@@ -130,7 +118,7 @@ public class HostRestController {
     }
 
     //    Xem lịch sử thu nhập theo tháng
-    @GetMapping("/value")
+    @PostMapping("/value")
     public ResponseEntity<Iterable<ValuePerMonth>> getHistoryAndValue() {
         Account currentHost = getCurrentAccount();
         Long hostId = currentHost.getId();
@@ -138,12 +126,18 @@ public class HostRestController {
     }
 
     //    Lấy tổng tiền thu đc của 1 host
-    @GetMapping("/allValue")
+    @PostMapping("/allValue")
     public ResponseEntity<Float> getHostValue() {
         Account currentHost = getCurrentAccount();
         Long hostId = currentHost.getId();
-        System.out.println(hostId);
         return ResponseEntity.ok(this.contractService.getHostValueById(hostId));
+    }
+    //    Láy số lượng hợp đồng
+    @PostMapping("/contractsQuantity")
+    public ResponseEntity<Long> getContractQuantityByHost() {
+        Account currentHost = getCurrentAccount();
+        Long hostId = currentHost.getId();
+        return ResponseEntity.ok(this.contractService.getContractQuantityByHost(hostId));
     }
 
 }

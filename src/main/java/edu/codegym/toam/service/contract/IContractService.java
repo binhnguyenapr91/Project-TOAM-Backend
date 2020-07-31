@@ -39,4 +39,6 @@ public interface IContractService {
     boolean checkAvailableTime (Date checkinTime, Long id) throws ContractException;
 
     boolean checkContractCancel(Long contractId);
+
+    Long getContractQuantityByHost(Long hostId);
 }

@@ -195,4 +195,8 @@ public class ContractService implements IContractService {
         return now.before(beginTime);
     }
 
+    @Override
+    public Long getContractQuantityByHost(Long hostId) {
+        return contractRepository.countContractsByProperties_Host_Id(hostId);
+    }
 }

@@ -14,6 +14,7 @@ public interface ICommentsService {
     Comments create(Comments contracts);
 
     Iterable<Comments> findAllCommentByPropertyId(Long propertyId);
+    Iterable<Comments> findAllCommentByAccountId(Long hostId);
 
     Comments createCommentByPropertyId(Long propertyId,Comments comments);
 }
