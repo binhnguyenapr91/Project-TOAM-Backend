@@ -32,5 +32,6 @@ public interface ContractRepository extends JpaRepository<Contracts, Long> {
 
     Iterable<Contracts> findAllByCreateTimeBetween(Date beginToTrack, Date now);
 
+    Iterable<Contracts> findAllByProperties_Host_Id(Long hostId);
 
 }
