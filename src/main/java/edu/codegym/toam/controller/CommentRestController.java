@@ -66,6 +66,10 @@ public class CommentRestController {
     public ResponseEntity<Iterable<Comments>> getPropertyComments(@PathVariable Long propertyId) {
         return ResponseEntity.ok(this.commentsService.findAllCommentByPropertyId(propertyId));
     }
+    @GetMapping("/host/{hostId}}")
+    public ResponseEntity<Iterable<Comments>> getHostComments(@PathVariable Long hostId) {
+        return ResponseEntity.ok(this.commentsService.findAllCommentByPropertyId(hostId));
+    }
 
     // Tạo comments của 1 property (chỉ cho phép những account có trong hợp đồng vs nhà này dc phép bình luận)
     @PostMapping("create/property")
