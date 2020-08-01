@@ -1,4 +1,7 @@
 package edu.codegym.toam.service.propertyStatus;
 
-public interface IPropertyStatusService {
+import edu.codegym.toam.model.PropertyStatus;
+
+public interface IPropertyStatusService{
+    Iterable<PropertyStatus> getAll();
 }
